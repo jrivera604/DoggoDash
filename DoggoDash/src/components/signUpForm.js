@@ -1,21 +1,43 @@
 import { useState } from "react";
+import {useRouter} from "next/router"
+import {
+  Checkbox,
+  Card,
+  List,
+  ListItem,
+  ListItemPrefix,
+  Typography,
+} from "@material-tailwind/react";
 
 export default function signUpForm() {
+  const router = useRouter()
   // States for registration
+  const [dogOwner, setDogOwner] = useState("");
+  const [dogSitter, setDogSitter] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
+  const [province, setProvince] = useState("ON");
   const [streetAddress, setStreetAddress] = useState("");
   const [postalCode, setpostalCode] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   // States for checking the errors
-  // const [submitted, setSubmitted] = useState(false);
-  // const [error, setError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   // Handling the first name change
+  const handleDogOwner= (e) => {
+    setDogOwner("Dog Owner");
+    setSubmitted(false);
+  };
+
+  const handleDogSitter= (e) => {
+    setDogSitter("Dog Sitter");
+    setSubmitted(false);
+  };
+  
   const handleFirstName = (e) => {
     setFirstName(e.target.value);
     setSubmitted(false);
@@ -61,24 +83,116 @@ export default function signUpForm() {
   // Handling the form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      dogOwner === "" && dogSitter === "" ||
+      firstName === "" ||
+      lastName === "" ||
+      streetAddress === "" ||
+      city === "" ||
+      province === "" ||
+      postalCode === "" ||
+      email === "" ||
+      password === ""
+    ) {
+      setError(true);
+    } else {
+      setSubmitted(true);
+      setError(false);
+      router.replace('search')
+    }
   };
 
+  // Showing success message
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? "" : "none",
+        }}
+      >
+        <h1>User {firstName} successfully registered!!</h1>
+      </div>
+    );
+  };
+
+  // Showing error message if error is true
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? "" : "none",
+        }}
+      >
+        <h1>Please enter all the fields</h1>
+      </div>
+    );
+  };
+    
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* <img
-            className="mx-auto h-10 w-auto"
-            src=""
-            alt="Your Company"
-          /> */}
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             User Registration
           </h2>
         </div>
+        <div className="messages">
+          {errorMessage()}
+          {successMessage()}
+        </div>
+        <Card className="w-full max-w-[24rem] m-auto">
+          <List className="flex-row">
+            <ListItem className="p-0">
+              <label
+                htmlFor="horizontal-list-vue"
+                className="px-3 py-2 flex items-center w-full cursor-pointer"
+              >
+                <ListItemPrefix className="mr-3">
+                  <Checkbox
+                     onChange={handleDogOwner}
+                     value={dogOwner}
+                    id="horizontal-list-vue"
+                    ripple={false}
+                    className="hover:before:opacity-0"
+                    containerProps={{
+                      className: "p-0",
+                    }}
+                  />
+                </ListItemPrefix>
+                <Typography color="blue-gray" className="block text-sm font-medium leading-6 text-gray-900">
+                  Dog Owner
+                </Typography>
+              </label>
+            </ListItem>
+            <ListItem className="p-0" >
+              <label
+                htmlFor="horizontal-list-svelte"
+                className="px-3 py-2 flex items-center w-full cursor-pointer"
+              >
+                <ListItemPrefix className="mr-3">
+                  <Checkbox
+                    onChange={handleDogSitter}
+                    value={dogSitter}
+                    id="horizontal-list-svelte"
+                    ripple={false}
+                    className="hover:before:opacity-0"
+                    containerProps={{
+                      className: "p-0",
+                    }}
+                  />
+                </ListItemPrefix>
+                <Typography color="blue-gray" className="block text-sm font-medium leading-6 text-gray-900">
+                  Dog Sitter
+                </Typography>
+              </label>
+            </ListItem>
+          </List>
+        </Card>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm" id="inputFields">
+          <form className="space-y-6" action="#" method="POST" >
             <div>
               <label
                 htmlFor="firstName"
