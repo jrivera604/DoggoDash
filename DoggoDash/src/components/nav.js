@@ -15,7 +15,7 @@ const signedOutNavigationLeft = [
   { name: "Search", href: "/search", current: false },
 ];
 
-const signedInNavigation = [
+const signedInNavigationLeft = [
   { name: "Search", href: "/search", current: false },
   { name: "Messages", href: "/messages", current: false },
 ];
@@ -76,8 +76,8 @@ export default function Navbar() {
 
               <div className="flex flex-1 items-center sm:items-stretch justify-start">
                 <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4 " id="signedOutNavigationLeft">
-                    {signedOutNavigationLeft.map((item) => (
+                  <div className="flex space-x-4 " id="signedInNavigationLeft">
+                    {signedInNavigationLeft.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -96,7 +96,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div className="flex flex-1 items-center sm:items-stretch justify-end">
+              {/* <div className="flex flex-1 items-center sm:items-stretch justify-end">
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-10
 
@@ -118,7 +118,7 @@ export default function Navbar() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* NOTIFICATION ICON */}
                 {/* <button
@@ -132,7 +132,7 @@ export default function Navbar() {
                 {/* Profile dropdown */}
 
                 {/* DISPLAY ONCE LOGGED IN  */}
-                {/* <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -185,7 +185,7 @@ export default function Navbar() {
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu> */}
+                </Menu>
               </div>
             </div>
           </div>
