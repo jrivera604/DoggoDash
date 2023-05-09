@@ -10,28 +10,97 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model User {
+//   id    Int     @id @default(autoincrement())
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+//   Blog  Blog[]
+// }  
+
+// model Post {
+//   id        Int     @id @default(autoincrement())
+//   title     String
+//   content   String?
+//   published Boolean @default(false)
+//   author    User    @relation(fields: [authorId], references: [id])
+//   authorId  Int
+// }
+
+// model Blog {
+//   id        Int     @id @default(autoincrement())
+//   title     String
+//   content   String?
+//   published Boolean @default(false)
+//   author    User    @relation(fields: [authorId], references: [id])
+//   authorId  Int
+// }
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-  Blog  Blog[]
+  id               Int         @id @default(autoincrement())
+  firstname        String
+  lastname         String
+  streetAddress String
+  city String
+  provinve String
+  postalCode String
+  email String
+  passworrd String
+  user_type Boolean
+  createdAt DateTime
+  updatedAt DateTime
+  rate Int
+  sitterAvailability String
+ //Relationships
+  messagesSent     Message[]   @relation("Sender")
+  messagesReceived Message[]   @relation("Receiver")
+  dogs             Dog[]       @relation("Owner")
+  dogSitter        DogSitter[]
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Message {
+  timestamp DateTime
+  message String
+  //Relationships
+  receiverId Int
+  id         Int  @id @default(autoincrement())
+  sender     User @relation("Sender", fields: [senderId], references: [id])
+  senderId   Int
+  receiver   User @relation("Receiver", fields: [receiverId], references: [id])
 }
 
-model Blog {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Dog {
+  name String
+  yearOfBirth DateTime
+  weight Int
+  temperament String
+  comments String
+  image String
+  //Relationships
+  id        Int         @id @default(autoincrement())
+  breed     Breed       @relation(fields: [breedId], references: [id])
+  breedId   Int
+  owner     User        @relation("Owner", fields: [ownerId], references: [id])
+  ownerId   Int
+  DogSitter DogSitter[]
+}
+
+model Breed {
+  id   Int   @id @default(autoincrement())
+  name String
+  images String
+  dogs Dog[]
+}
+
+model DogSitter {
+  duration DateTime
+  value Int
+  rating Int
+  id       Int  @id @default(autoincrement())
+  sitter   User @relation(fields: [sitterId], references: [id])
+  sitterId Int
+  dog      Dog  @relation(fields: [dogId], references: [id])
+  dogId    Int
+
+
 }
