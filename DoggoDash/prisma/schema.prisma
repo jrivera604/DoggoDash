@@ -19,19 +19,11 @@ model User {
   lastname         String?
   streetAddress String?
   city String?
-<<<<<<< HEAD
-  provinve String?
-  postalCode String?
-  email String?
-  passworrd String?
-  user_type Boolean?
-=======
   province String?
   postalCode String?
   email String?
   passworrd String?
-  user_type String?
->>>>>>> feature/checkout
+  user_type Boolean?
   createdAt DateTime?
   updatedAt DateTime?
   rate Int?
@@ -57,11 +49,7 @@ model Message {
 model Dog {
   name String?
   yearOfBirth DateTime?
-<<<<<<< HEAD
   weight Int?
-=======
-  weight Int
->>>>>>> feature/checkout
   temperament String?
   comments String?
   image String?
@@ -83,13 +71,8 @@ model Breed {
 
 model DogSitter {
   duration DateTime?
-<<<<<<< HEAD
   value Int?
   rating Int?
-=======
-  value Int
-  rating Int
->>>>>>> feature/checkout
   id       Int  @id @default(autoincrement())
   sitter   User @relation(fields: [sitterId], references: [id])
   sitterId Int
