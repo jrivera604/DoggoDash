@@ -1,14 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import {
-  Checkbox,
-  Card,
-  List,
-  ListItem,
-  ListItemPrefix,
-  Typography,
-} from "@material-tailwind/react";
+import axios from "axios";
 
 export default function signUpForm() {
   const router = useRouter();
@@ -29,17 +22,6 @@ export default function signUpForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  // Handling the first name change
-  const handleDogOwner = (e) => {
-    setDogOwner("Dog Owner");
-    setSubmitted(false);
-  };
-
-  const handleDogSitter = (e) => {
-    setDogSitter("Dog Sitter");
-    setSubmitted(false);
-  };
-
   // Handling the form submission
   const formhandler = useCallback(
     () => (event) => {
@@ -56,11 +38,12 @@ export default function signUpForm() {
         password: passwordInputElement.current?.value,
       };
       console.log(data);
-      router.replace("search")
+      axios.post("/api/signUp", {});
+      router.replace("search");
     },
     []
   );
-  
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -80,7 +63,7 @@ export default function signUpForm() {
                 htmlFor="province"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-               Would you like to register as a dog owner or sitter? 
+                Would you like to register as a dog owner or sitter?
               </label>
               <select
                 ref={userTypeInputElement}
