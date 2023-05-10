@@ -1,5 +1,6 @@
-import { useState } from "react";
-import {useRouter} from "next/router"
+import { useState, useCallback } from "react";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 import {
   Checkbox,
   Card,
@@ -10,126 +11,56 @@ import {
 } from "@material-tailwind/react";
 
 export default function signUpForm() {
-  const router = useRouter()
+  const router = useRouter();
+
   // States for registration
-  const [dogOwner, setDogOwner] = useState("");
-  const [dogSitter, setDogSitter] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [city, setCity] = useState("");
-  const [province, setProvince] = useState("ON");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [postalCode, setpostalCode] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const userTypeInputElement = useRef("ON");
+  const firstNameInputElement = useRef("");
+  const lastNameInputElement = useRef("");
+  const cityInputElement = useRef("");
+  const provinceInputElement = useRef("ON");
+  const streetAddressInputElement = useRef("");
+  const postalCodeInputElement = useRef("");
+  const emailInputElement = useRef("");
+  const passwordInputElement = useRef("");
 
   // States for checking the errors
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
   // Handling the first name change
-  const handleDogOwner= (e) => {
+  const handleDogOwner = (e) => {
     setDogOwner("Dog Owner");
     setSubmitted(false);
   };
 
-  const handleDogSitter= (e) => {
+  const handleDogSitter = (e) => {
     setDogSitter("Dog Sitter");
     setSubmitted(false);
   };
-  
-  const handleFirstName = (e) => {
-    setFirstName(e.target.value);
-    setSubmitted(false);
-  };
-
-  // Handling the last name change
-  const handleLastName = (e) => {
-    setLastName(e.target.value);
-    setSubmitted(false);
-  };
-
-  // Handling the street adress change
-  const handleStreetAdress = (e) => {
-    setStreetAddress(e.target.value);
-    setSubmitted(false);
-  };
-
-  // Handling the street adress change
-  const handleCity = (e) => {
-    setCity(e.target.value);
-    setSubmitted(false);
-  };
-
-  // Handling the street adress change
-  const handleProvince = (e) => {
-    setProvince(e.target.value);
-  };
-
-  const handlePostalCode = (e) => {
-    setpostalCode(e.target.value);
-  };
-
-  // Handling the email change
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  // Handling the password change
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
 
   // Handling the form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (
-      dogOwner === "" && dogSitter === "" ||
-      firstName === "" ||
-      lastName === "" ||
-      streetAddress === "" ||
-      city === "" ||
-      province === "" ||
-      postalCode === "" ||
-      email === "" ||
-      password === ""
-    ) {
-      setError(true);
-    } else {
-      setSubmitted(true);
-      setError(false);
-      router.replace('search')
-    }
-  };
-
-  // Showing success message
-  const successMessage = () => {
-    return (
-      <div
-        className="success"
-        style={{
-          display: submitted ? "" : "none",
-        }}
-      >
-        <h1>User {firstName} successfully registered!!</h1>
-      </div>
-    );
-  };
-
-  // Showing error message if error is true
-  const errorMessage = () => {
-    return (
-      <div
-        className="error"
-        style={{
-          display: error ? "" : "none",
-        }}
-      >
-        <h1>Please enter all the fields</h1>
-      </div>
-    );
-  };
-    
+  const formhandler = useCallback(
+    () => (event) => {
+      event.preventDefault();
+      const data = {
+        user_type: userTypeInputElement.current?.value,
+        firstName: firstNameInputElement.current?.value,
+        lastName: lastNameInputElement.current?.value,
+        streetAddress: streetAddressInputElement.current?.value,
+        city: cityInputElement.current?.value,
+        province: provinceInputElement.current?.value,
+        postalCode: postalCodeInputElement.current?.value,
+        email: emailInputElement.current?.value,
+        password: passwordInputElement.current?.value,
+      };
+      console.log(data);
+      router.replace("search")
+    },
+    []
+  );
+  
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -138,61 +69,30 @@ export default function signUpForm() {
             User Registration
           </h2>
         </div>
-        <div className="messages">
-          {errorMessage()}
-          {successMessage()}
-        </div>
-        <Card className="w-full max-w-[24rem] m-auto">
-          <List className="flex-row">
-            <ListItem className="p-0">
-              <label
-                htmlFor="horizontal-list-vue"
-                className="px-3 py-2 flex items-center w-full cursor-pointer"
-              >
-                <ListItemPrefix className="mr-3">
-                  <Checkbox
-                     onChange={handleDogOwner}
-                     value={dogOwner}
-                    id="horizontal-list-vue"
-                    ripple={false}
-                    className="hover:before:opacity-0"
-                    containerProps={{
-                      className: "p-0",
-                    }}
-                  />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="block text-sm font-medium leading-6 text-gray-900">
-                  Dog Owner
-                </Typography>
-              </label>
-            </ListItem>
-            <ListItem className="p-0" >
-              <label
-                htmlFor="horizontal-list-svelte"
-                className="px-3 py-2 flex items-center w-full cursor-pointer"
-              >
-                <ListItemPrefix className="mr-3">
-                  <Checkbox
-                    onChange={handleDogSitter}
-                    value={dogSitter}
-                    id="horizontal-list-svelte"
-                    ripple={false}
-                    className="hover:before:opacity-0"
-                    containerProps={{
-                      className: "p-0",
-                    }}
-                  />
-                </ListItemPrefix>
-                <Typography color="blue-gray" className="block text-sm font-medium leading-6 text-gray-900">
-                  Dog Sitter
-                </Typography>
-              </label>
-            </ListItem>
-          </List>
-        </Card>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm" id="inputFields">
-          <form className="space-y-6" action="#" method="POST" >
+        <div
+          className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"
+          id="inputFields"
+        >
+          <form className="space-y-6" action="#" method="POST">
+            <div className="mt-2">
+              <label
+                htmlFor="province"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+               Would you like to register as a dog owner or sitter? 
+              </label>
+              <select
+                ref={userTypeInputElement}
+                id="userTyper"
+                name="userTyper"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option>Dog Owner</option>
+                <option>Dog Sitter</option>
+                <option>Both</option>
+              </select>
+            </div>
             <div>
               <label
                 htmlFor="firstName"
@@ -202,8 +102,7 @@ export default function signUpForm() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleFirstName}
-                  value={firstName}
+                  ref={firstNameInputElement}
                   id="firstName"
                   name="firstName"
                   type="text"
@@ -223,8 +122,7 @@ export default function signUpForm() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleLastName}
-                  value={lastName}
+                  ref={lastNameInputElement}
                   id="lastName"
                   name="lastName"
                   type="text"
@@ -244,8 +142,7 @@ export default function signUpForm() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleStreetAdress}
-                  value={streetAddress}
+                  ref={streetAddressInputElement}
                   id="streetAddress"
                   name="streetAddress"
                   type="text"
@@ -265,8 +162,7 @@ export default function signUpForm() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleCity}
-                  value={city}
+                  ref={cityInputElement}
                   id="city"
                   name="city"
                   type="text"
@@ -287,8 +183,7 @@ export default function signUpForm() {
                 </label>
                 <div className="mt-2">
                   <select
-                    onChange={handleProvince}
-                    value={province}
+                    ref={provinceInputElement}
                     id="province"
                     name="province"
                     className="rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -318,8 +213,7 @@ export default function signUpForm() {
                 </label>
                 <div className="mt-2">
                   <input
-                    onChange={handlePostalCode}
-                    value={postalCode}
+                    ref={postalCodeInputElement}
                     id="postalCode"
                     name="postalCode"
                     type="text"
@@ -340,8 +234,7 @@ export default function signUpForm() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={handleEmail}
-                  value={email}
+                  ref={emailInputElement}
                   id="email"
                   name="email"
                   type="email"
@@ -363,8 +256,7 @@ export default function signUpForm() {
               </div>
               <div className="mt-2">
                 <input
-                  onChange={handlePassword}
-                  value={password}
+                  ref={passwordInputElement}
                   id="password"
                   name="password"
                   type="password"
@@ -376,7 +268,7 @@ export default function signUpForm() {
             </div>
             <div>
               <button
-                onClick={handleSubmit}
+                onClick={formhandler()}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
