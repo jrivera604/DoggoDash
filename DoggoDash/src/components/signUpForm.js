@@ -38,8 +38,7 @@ export default function signUpForm() {
         password: passwordInputElement.current?.value,
       };
       console.log(data);
-      axios.post("/api/signUp", {});
-      router.replace("search");
+      axios.post("/api/signUp", data).then(router.replace("search"));
     },
     []
   );
