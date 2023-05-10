@@ -173,7 +173,7 @@ export default function signUpForm() {
               </div>
             </div>
 
-            <div class="inline-flex flex-row">
+            <div className="inline-flex flex-row">
               <div className="province">
                 <label
                   htmlFor="province"
@@ -190,6 +190,7 @@ export default function signUpForm() {
                   >
                     <option>ON</option>
                     <option>AB</option>
+                    <option>BC</option>
                     <option>MB</option>
                     <option>NB</option>
                     <option>NL</option>

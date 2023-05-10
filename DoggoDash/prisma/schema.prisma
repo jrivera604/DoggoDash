@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,74 +7,76 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
 model User {
   id               Int         @id @default(autoincrement())
   firstname        String?
   lastname         String?
-  streetAddress String?
-  city String?
-  province String?
-  postalCode String?
-  email String?
-  passworrd String?
-  user_type String?
-  createdAt DateTime?
-  updatedAt DateTime?
-  rate Int?
+  streetAddress    String?
+  city             String?
+  province         String?
+  postalCode       String?
+  email            String?    @unique
+  password         String?
+  user_type        String?
+  createdAt        DateTime?  @default(now())
+  updatedAt        DateTime?  @updatedAt
+  rate             Int?
   sitterAvailability String?
- //Relationships
+  
+  // Relationships
   messagesSent     Message[]   @relation("Sender")
   messagesReceived Message[]   @relation("Receiver")
   dogs             Dog[]       @relation("Owner")
-  dogSitter        DogSitter[]
+  dogSitter       DogSitter[]
 }
 
 model Message {
-  timestamp DateTime?
-  message String?
-  //Relationships
-  receiverId Int
-  id         Int  @id @default(autoincrement())
-  sender     User @relation("Sender", fields: [senderId], references: [id])
+  id         Int      @id @default(autoincrement())
+  timestamp  DateTime?
+  message    String?
+  
+  // Relationships
+  sender     User     @relation("Sender", fields: [senderId], references: [id])
   senderId   Int
-  receiver   User @relation("Receiver", fields: [receiverId], references: [id])
+  receiver   User     @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId Int
 }
 
 model Dog {
-  name String?
-  yearOfBirth DateTime?
-  weight Int?
-  temperament String?
-  comments String?
-  image String?
-  //Relationships
-  id        Int         @id @default(autoincrement())
-  breed     Breed       @relation(fields: [breedId], references: [id])
-  breedId   Int
-  owner     User        @relation("Owner", fields: [ownerId], references: [id])
-  ownerId   Int
-  DogSitter DogSitter[]
+  id           Int      @id @default(autoincrement())
+  name         String?
+  yearOfBirth  DateTime?
+  weight       Int?
+  temperament  String?
+  comments     String?
+  image        String?
+  
+  // Relationships
+  breed        Breed    @relation(fields: [breedId], references: [id])
+  breedId      Int
+  owner        User     @relation("Owner", fields: [ownerId], references: [id])
+  ownerId      Int
+  dogSitters   DogSitter[]
 }
 
 model Breed {
-  id   Int   @id @default(autoincrement())
-  name String?
-  images String?
-  dogs Dog[]
+  id      Int      @id @default(autoincrement())
+  name    String?
+  images  String?
+  
+  // Relationships
+  dogs    Dog[]
 }
 
 model DogSitter {
-  duration DateTime?
-  value Int?
-  rating Int?
-  id       Int  @id @default(autoincrement())
-  sitter   User @relation(fields: [sitterId], references: [id])
-  sitterId Int
-  dog      Dog  @relation(fields: [dogId], references: [id])
-  dogId    Int
-
-
+  id            Int      @id @default(autoincrement())
+  duration      DateTime?
+  value         Int?
+  rating        Int?
+  
+  // Relationships
+  sitter        User     @relation(fields: [sitterId], references: [id])
+  sitterId      Int
+  dog           Dog      @relation(fields: [dogId], references: [id])
+  dogId         Int
 }
