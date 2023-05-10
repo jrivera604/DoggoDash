@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { PrismaClient } from '@prisma/client'
 import Navbar from '@/src/components/nav.js' 
+import SignedInNavbar from '@/src/components/signedInNav.js' 
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,7 +19,8 @@ export default function Home({blogs}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar></Navbar>
+      <SignedInNavbar/>
+      <Navbar/>
       <main className={styles.main}>
       <h1 className={styles.title}>Welcome, to your LHL Skeleton!</h1>
       <p className={styles.subtitle}>Please read the the skeleton set up for this should be in the read me one directory above your current.</p>
