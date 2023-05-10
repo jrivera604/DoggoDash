@@ -23,7 +23,7 @@ model User {
   postalCode String?
   email String?
   passworrd String?
-  user_type Boolean?
+  user_type String?
   createdAt DateTime?
   updatedAt DateTime?
   rate Int?
