@@ -1,22 +1,30 @@
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const prisma = new PrismaClient()
-    const data = req.body
-
-    const user = await prisma.user.findUnique({
-      where: {
-        email: data.email,
+  if (req.method === "POST") {
+    const prisma = new PrismaClient();
+    const {
+      user_type,
+      firstName,
+      lastName,
+      streetAddress,
+      city,
+      province,
+      postalCode,
+      email,
+      password,
+    } = req.body;
+    const result = await prisma.user.create({
+      User: {
+        user_type,
+        firstName,
+        lastName,
+        streetAddress,
+        city,
+        province,
+        postalCode,
+        email,
+        password,
       },
-    })
-
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' })
-    }
-
-    if (user.password !== data.password) {
-      return res.status(401).json({ message: 'Invalid email or password' })
-    }
-
-    return res.status(200).json({ message: 'Login successful' })
+    });
+    res.json(result);
   }
 }

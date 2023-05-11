@@ -23,25 +23,23 @@ export default function signUpForm() {
   const [error, setError] = useState(false);
 
   // Handling the form submission
-  const formhandler = useCallback(
-    () => (event) => {
-      event.preventDefault();
-      const data = {
-        user_type: userTypeInputElement.current?.value,
-        firstName: firstNameInputElement.current?.value,
-        lastName: lastNameInputElement.current?.value,
-        streetAddress: streetAddressInputElement.current?.value,
-        city: cityInputElement.current?.value,
-        province: provinceInputElement.current?.value,
-        postalCode: postalCodeInputElement.current?.value,
-        email: emailInputElement.current?.value,
-        password: passwordInputElement.current?.value,
-      };
-      console.log(data);
-      axios.post("/api/signUp", data).then(router.replace("search"));
-    },
-    []
-  );
+  const formhandler = useCallback(() => (event) => {
+    event.preventDefault();
+    const data = {
+      user_type: userTypeInputElement.current?.value,
+      firstName: firstNameInputElement.current?.value,
+      lastName: lastNameInputElement.current?.value,
+      streetAddress: streetAddressInputElement.current?.value,
+      city: cityInputElement.current?.value,
+      province: provinceInputElement.current?.value,
+      postalCode: postalCodeInputElement.current?.value,
+      email: emailInputElement.current?.value,
+      password: passwordInputElement.current?.value,
+    };
+    console.log(data);
+    axios.post("/api/signUp", data).then(router.replace("search")).catch(error);
+    console.error(error.response.data);
+  });
 
   return (
     <>
