@@ -7,8 +7,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 const logo = { name: "DOGGO DASH", href: "/", current: false };
 
 const signedOutNavigationRight = [
-  { name: "Sign Up", href: "/signUp", current: false },
-  { name: "Sign In", href: "/signIn", current: false },
+  { name: "Sign In", href: "/api/auth/login", current: false },
+  { name: "Log Out", href: "/api/auth/logout", current: false},
 ];
 
 const signedOutNavigationLeft = [
