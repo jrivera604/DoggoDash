@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { PrismaClient } from "@prisma/client"
@@ -12,3 +13,35 @@ export default async function handler(req, res) {
     }
 }
   
+=======
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    const prisma = new PrismaClient();
+    const {
+      user_type,
+      firstName,
+      lastName,
+      streetAddress,
+      city,
+      province,
+      postalCode,
+      email,
+      password,
+    } = req.body;
+    const result = await prisma.user.create({
+      User: {
+        user_type,
+        firstName,
+        lastName,
+        streetAddress,
+        city,
+        province,
+        postalCode,
+        email,
+        password,
+      },
+    });
+    res.json(result);
+  }
+}
+>>>>>>> e639135e4438df24812927ab6041af7b0c297c28

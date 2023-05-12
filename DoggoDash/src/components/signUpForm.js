@@ -1,14 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import {
-  Checkbox,
-  Card,
-  List,
-  ListItem,
-  ListItemPrefix,
-  Typography,
-} from "@material-tailwind/react";
+import axios from "axios";
 
 export default function signUpForm() {
   const router = useRouter();
@@ -29,38 +22,25 @@ export default function signUpForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  // Handling the first name change
-  const handleDogOwner = (e) => {
-    setDogOwner("Dog Owner");
-    setSubmitted(false);
-  };
-
-  const handleDogSitter = (e) => {
-    setDogSitter("Dog Sitter");
-    setSubmitted(false);
-  };
-
   // Handling the form submission
-  const formhandler = useCallback(
-    () => (event) => {
-      event.preventDefault();
-      const data = {
-        user_type: userTypeInputElement.current?.value,
-        firstName: firstNameInputElement.current?.value,
-        lastName: lastNameInputElement.current?.value,
-        streetAddress: streetAddressInputElement.current?.value,
-        city: cityInputElement.current?.value,
-        province: provinceInputElement.current?.value,
-        postalCode: postalCodeInputElement.current?.value,
-        email: emailInputElement.current?.value,
-        password: passwordInputElement.current?.value,
-      };
-      console.log(data);
-      router.replace("search")
-    },
-    []
-  );
-  
+  const formhandler = useCallback(() => (event) => {
+    event.preventDefault();
+    const data = {
+      user_type: userTypeInputElement.current?.value,
+      firstName: firstNameInputElement.current?.value,
+      lastName: lastNameInputElement.current?.value,
+      streetAddress: streetAddressInputElement.current?.value,
+      city: cityInputElement.current?.value,
+      province: provinceInputElement.current?.value,
+      postalCode: postalCodeInputElement.current?.value,
+      email: emailInputElement.current?.value,
+      password: passwordInputElement.current?.value,
+    };
+    console.log(data);
+    axios.post("/api/signUp", data).then(router.replace("search")).catch(error);
+    console.error(error.response.data);
+  });
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -80,7 +60,7 @@ export default function signUpForm() {
                 htmlFor="province"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-               Would you like to register as a dog owner or sitter? 
+                Would you like to register as a dog owner or sitter?
               </label>
               <select
                 ref={userTypeInputElement}
