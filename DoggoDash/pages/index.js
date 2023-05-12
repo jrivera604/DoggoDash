@@ -1,11 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import { PrismaClient } from '@prisma/client'
-import Navbar from '@/src/components/nav.js'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import { PrismaClient } from "@prisma/client";
+import Navbar from "@/src/components/nav.js";
+import SignedInNavbar from "@/src/components/signedInNav.js";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Home() {
+  const { user } = useUser();
   return (
     <div>
       <Head>
@@ -14,7 +17,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      {/* //conditionally renders nav bar based if user exists */}
+        {user && (
+          <nav>
+            <SignedInNavbar />
+          </nav>
+        )}
+        {!user && (
+          <nav>
+            <Navbar />
+          </nav>
+        )}
+      
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -43,13 +57,9 @@ export default function Home() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
-<<<<<<< HEAD
-
-
-=======
 // export async function getStaticProps() {
 //   const prisma = new PrismaClient()
 //   const blogs = await prisma.blog.findMany()
@@ -58,4 +68,3 @@ export default function Home() {
 //     props : { blogs }
 //   }
 // }
->>>>>>> e639135e4438df24812927ab6041af7b0c297c28
