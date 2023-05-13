@@ -34,6 +34,7 @@ model Message {
   id         Int      @id @default(autoincrement())
   timestamp  DateTime?
   message    String?
+  chatId     Int
   
   // Relationships
   sender     User     @relation("Sender", fields: [senderId], references: [id])
