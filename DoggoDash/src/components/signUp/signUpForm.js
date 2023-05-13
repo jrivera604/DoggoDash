@@ -26,7 +26,7 @@ export default function signUpForm() {
   const formhandler = useCallback(() => (event) => {
     event.preventDefault();
     const data = {
-      user_type: userTypeInputElement.current?.value,
+      userType: userTypeInputElement.current?.value,
       firstName: firstNameInputElement.current?.value,
       lastName: lastNameInputElement.current?.value,
       streetAddress: streetAddressInputElement.current?.value,
