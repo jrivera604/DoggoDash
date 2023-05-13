@@ -1,15 +1,15 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "firstname" TEXT,
-    "lastname" TEXT,
+    "userType" TEXT,
+    "firstName" TEXT,
+    "lastName" TEXT,
     "streetAddress" TEXT,
     "city" TEXT,
     "province" TEXT,
     "postalCode" TEXT,
     "email" TEXT,
     "password" TEXT,
-    "user_type" TEXT,
     "createdAt" DATETIME DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
     "rate" INTEGER,

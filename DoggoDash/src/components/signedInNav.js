@@ -176,7 +176,7 @@ export default function SignedInNavbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/api/auth/logout"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
@@ -192,7 +192,7 @@ export default function SignedInNavbar() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {signedOutNavigationRight.map((item) => (
+              {signedOutNavigationLeft.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"
