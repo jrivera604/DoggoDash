@@ -60,21 +60,3 @@ export default function Home() {
   );
 }
 
-<<<<<<< HEAD
-
-
-=======
-<<<<<<< HEAD
-
-
-=======
-// export async function getStaticProps() {
-//   const prisma = new PrismaClient()
-//   const blogs = await prisma.blog.any()
-
-//   return {
-//     props : { blogs }
-//   }
-// }
->>>>>>> 8f75ca4cd4a142528afdb535bd49fc8b943717be
->>>>>>> main
