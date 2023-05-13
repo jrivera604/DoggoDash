@@ -1,11 +1,5 @@
-import Navbar from '@/src/components/nav.js' 
+import Chat from '../src/components/chat';
 
 export default function Messages() {
-
-  return  (
-    <div>
-      <Navbar/>
-    </div>
-  )
+  return <Chat />;
 }
-
