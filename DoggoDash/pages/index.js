@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { PrismaClient } from "@prisma/client";
 import Navbar from "@/src/components/nav.js";
