@@ -1,73 +1,38 @@
-<<<<<<< HEAD
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const prisma = new PrismaClient();
-    const {
-      user_type,
-      firstName,
-      lastName,
-      streetAddress,
-      city,
-      province,
-      postalCode,
-      email,
-      password,
-    } = req.body;
-    const result = await prisma.user.create({
-      User: {
-        user_type,
-=======
-<<<<<<< HEAD
-=======
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client";
 
-// export default async function handler(req, res) {
-// //res.status(200).json({ name: 'John Doe' })
-//     if(req.method === "POST") {
-//         const prisma = new PrismaClient()
-//         const data = req.body
-//         console.log(data)
-//         console.log(prisma.user)
-//     }
-// }
-  
-
->>>>>>> 8f75ca4cd4a142528afdb535bd49fc8b943717be
 export default async function handler(req, res) {
-  if (req.method === "POST") {
+  console.log(req.method)
+  if (req.method === "POST") { 
     const prisma = new PrismaClient();
-    console.log(req.body);
-    const userType = req.body.data.userType;
-    const firstName = req.body.data.firstName;
-    const lastName = req.body.data.lastName;
-    const streetAddress = req.body.data.streetAddress;
-    const city = req.body.data.city;
-    const postalCode = req.body.data.postalCode;
-    const province = req.body.data.province;
-    const email = req.body.data.email;
-    const password = req.body.data.password;
-    const user = await prisma.user.create({
+    const { data } = req.body; 
+
+    //uses email in form to find user to update
+    const existingUser = await prisma.user.findUnique({
+      where: { email: data.email },
+    });
+
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // Update user fields in database
+    const updatedUser = await prisma.user.update({
+      where: { email: data.email },
       data: {
-        userType,
->>>>>>> main
-        firstName,
-        lastName,
-        streetAddress,
-        city,
-<<<<<<< HEAD
-        province,
-        postalCode,
-=======
-        postalCode,
-        province,
->>>>>>> main
-        email,
-        password,
+        userType: data.userType,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        streetAddress: data.streetAddress,
+        city: data.city,
+        postalCode: data.postalCode,
+        province: data.province,
       },
     });
-<<<<<<< HEAD
-    res.json(result);
-=======
->>>>>>> main
+    console.log(data)
+    res.status(200).json({
+      message: "User updated successfully",
+      user: updatedUser,
+    });
+
+    await prisma.$disconnect();
   }
 }

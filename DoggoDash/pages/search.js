@@ -10,7 +10,6 @@ export default function Search() {
     //conditionally renders nav bar based if user exists
     
     <div>
-      <Search />
       {user && (
         <nav>
           <SignedInNavbar />
@@ -21,6 +20,7 @@ export default function Search() {
           <Navbar />
         </nav>
       )}
+      <Search />
     </div>
   );
 }

@@ -20,18 +20,9 @@ export const advancedSchema = yup.object().shape({
   province: yup
     .string()
     .oneOf(
-      ["ON", "QC", "NS", "NB", "MB", "PEI", "SK", "AB", "NL"],
+      ["ON", "BC", "QC", "NS", "NB", "MB", "PEI", "SK", "AB", "NL"],
       "select province"
     )
     .required("Required"),
-  email: yup.string().required("Required"),
-  password: yup
-    .string()
-    .min(5)
-    .matches(passwordRules, { message: "Please create a stronger password" })
-    .required("Required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Required"),
+
 });

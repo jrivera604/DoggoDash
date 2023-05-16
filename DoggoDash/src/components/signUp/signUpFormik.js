@@ -4,28 +4,29 @@ import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function SignupForm() {
-  const router = useRouter()
-  
+  const router = useRouter();
+  const { user } = useUser();
+
   const onSubmit = async (values, actions) => {
     const data = {
+      email: user.email,
       userType: values.userType,
       firstName: values.firstName,
       lastName: values.lastName,
       streetAddress: values.streetAddress,
       city: values.city,
       postalCode: values.postalCode,
-      province: values.province,
-      email: values.email,
-      password: values.password,
+      province: values.province
     };
-    axios.post("/api/signUp", {data});
+    axios.post("/api/signUp", { data });
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
-    router.replace("search")
+    router.replace("search");
   };
-  
+
   return (
     <Formik
       initialValues={{
@@ -35,16 +36,23 @@ export default function SignupForm() {
         streetAddress: "",
         city: "",
         postalCode: "",
-        province: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        province: ""
       }}
       validationSchema={advancedSchema}
       onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (
         <Form>
+          {/* Uses Auth0 to fill email field with current user email */}
+         {user && (
+          <CustomInput
+            label="Email"
+            name="email"
+            type="text"
+            value={user.email}
+            disabled
+            />
+          )}
           <CustomSelect
             label="User Type"
             name="userType"
@@ -53,7 +61,6 @@ export default function SignupForm() {
             <option value="">Please select an account type</option>
             <option value="dogOwner">Dog Owner</option>
             <option value="dogSitter">Dog Sitter</option>
-           
           </CustomSelect>
           <CustomInput
             label="First Name"
@@ -97,6 +104,7 @@ export default function SignupForm() {
           >
             <option value="">Please select a province</option>
             <option value="ON">Ontario</option>
+            <option value="BC">British Columbia</option>
             <option value="QC">Quebec</option>
             <option value="NS">Nova Scotia</option>
             <option value="NB">New Brunswick</option>
@@ -106,27 +114,6 @@ export default function SignupForm() {
             <option value="AB">Alberta</option>
             <option value="NL">Newfoundland & Labrador</option>
           </CustomSelect>
-
-          <CustomInput
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="Enter your email"
-          />
-
-          <CustomInput
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter your password"
-          />
-
-          <CustomInput
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm password"
-          />
 
           <button disabled={isSubmitting} type="submit">
             Submit

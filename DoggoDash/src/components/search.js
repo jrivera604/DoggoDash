@@ -19,7 +19,7 @@ export default function Search() {
       <ul>
         {sitters.map((sitter) => (
           <li key={sitter.id}>
-            {sitter.firstname} {sitter.lastname}
+            {sitter.firstName} {sitter.lastName}
           </li>
         ))}
       </ul>
