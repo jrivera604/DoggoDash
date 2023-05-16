@@ -4,8 +4,8 @@ const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 
 
-export const advancedSchema = yup.object().shape({
-  province: yup
+export const userSignUP = yup.object().shape({
+  userType: yup
     .string()
     .oneOf(
       ["dogOwner", "dogSitter"],
@@ -20,18 +20,34 @@ export const advancedSchema = yup.object().shape({
   province: yup
     .string()
     .oneOf(
-      ["ON", "QC", "NS", "NB", "MB", "PEI", "SK", "AB", "NL"],
+      ["ON", "BC", "QC", "NS", "NB", "MB", "PEI", "SK", "AB", "NL"],
       "select province"
     )
     .required("Required"),
-  email: yup.string().required("Required"),
-  password: yup
+  // email: yup.string().required("Required"),
+  // password: yup
+  //   .string()
+  //   .min(5)
+  //   .matches(passwordRules, { message: "Please create a stronger password" })
+  //   .required("Required"),
+  // confirmPassword: yup
+  //   .string()
+  //   .oneOf([yup.ref("password"), null], "Passwords must match")
+  //   .required("Required"),
+});
+
+
+export const petSignUP = yup.object().shape({
+ 
+  name: yup.string().required("Required"),
+  weight: yup.number().required("Required"),
+  temperament: yup
     .string()
-    .min(5)
-    .matches(passwordRules, { message: "Please create a stronger password" })
+    .oneOf(
+      ["high", "moderate", "low"],
+      "select an option"
+    )
     .required("Required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Required"),
+  breed: yup.string().required("Required"),
+  date:yup.string().required("Required")
 });

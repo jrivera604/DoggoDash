@@ -8,3 +8,15 @@ const nextConfig = {
 
 module.exports = nextConfig
 
+module.exports = {
+  experimental: {
+    swcPlugins: [
+      [
+        'next-superjson-plugin',
+        {
+          excluded: [],
+        },
+      ],
+    ],
+  },
+}

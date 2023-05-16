@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { advancedSchema } from "./signUpFormSchema";
+import { userSignUP } from "./signUpFormSchema";
 import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import axios from "axios";
@@ -17,8 +17,8 @@ export default function SignupForm() {
       city: values.city,
       postalCode: values.postalCode,
       province: values.province,
-      email: values.email,
-      password: values.password,
+      // email: values.email,
+      // password: values.password,
     };
     axios.post("/api/signUp", {data});
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -37,10 +37,10 @@ export default function SignupForm() {
         postalCode: "",
         province: "",
         email: "",
-        password: "",
-        confirmPassword: "",
+        // password: "",
+        // confirmPassword: "",
       }}
-      validationSchema={advancedSchema}
+      validationSchema={userSignUP}
       onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (
@@ -97,6 +97,7 @@ export default function SignupForm() {
           >
             <option value="">Please select a province</option>
             <option value="ON">Ontario</option>
+            <option value="BC">British Columbia</option>
             <option value="QC">Quebec</option>
             <option value="NS">Nova Scotia</option>
             <option value="NB">New Brunswick</option>
@@ -107,7 +108,7 @@ export default function SignupForm() {
             <option value="NL">Newfoundland & Labrador</option>
           </CustomSelect>
 
-          <CustomInput
+          {/* <CustomInput
             label="Email"
             name="email"
             type="email"
@@ -126,7 +127,7 @@ export default function SignupForm() {
             name="confirmPassword"
             type="password"
             placeholder="Confirm password"
-          />
+          /> */}
 
           <button disabled={isSubmitting} type="submit">
             Submit
