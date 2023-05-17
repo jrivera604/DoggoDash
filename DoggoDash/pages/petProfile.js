@@ -1,15 +1,14 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Navbar from "@/src/components/nav";
 import SignedInNavbar from "@/src/components/signedInNav";
 import { PrismaClient } from "@prisma/client";
 import DogList from "@/src/components/doglist";
 import { format } from "date-fns";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import CurrentUser from "@/src/components/currentUser";
 
 export default function PetProfile({ dogs }) {
-  console.log(dogs);
   const { user } = useUser();
   return (
-    //conditionally renders nav bar based if user exists
     <div>
       {user && (
         <nav>
@@ -22,7 +21,7 @@ export default function PetProfile({ dogs }) {
         </nav>
       )}
       <a href="/petSignUp">
-        <button>Pet Sign Up</button>
+        <button>ADD PET</button>
       </a>
       <h1>Current Pets</h1>
       <DogList dogs={dogs} />
@@ -30,16 +29,23 @@ export default function PetProfile({ dogs }) {
   );
 }
 
+
 export async function getStaticProps() {
   const prisma = new PrismaClient();
+ 
+  // const userEmail = CurrentUser()
+  
+  // const currentUser = await prisma.user.findUnique({
+  //   where: { 
+  //     email: userEmail , 
+  //   },
+  // });
+  
+  // const dogs = await prisma.dog.findMany({
+  //   where:{ownerId:currentUser.id }
+  // });
 
   const dogs = await prisma.dog.findMany();
-
-  // const dogs = await prisma.dog.findUnique({ 
-  //   where:{
-  //     id: 42,
-  //   }
-  //     });
 
   const breeds = await prisma.breed.findMany();
 
@@ -57,7 +63,7 @@ export async function getStaticProps() {
       weight: dog.weight,
       name: dog.name,
       breed: dogBreed(dog.breedId),
-      yearOfBirth: format(dog.yearOfBirth, "mm-dd-yyyy"),
+      yearOfBirth: format(dog.yearOfBirth, "MM-dd-yyyy"),
     };
   });
 
