@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 400px;
+  background-color: white;
+  color: white;
+  padding: 20px;
+  order: 1;
+}
+
+.mapContainer {
+  flex-grow: 1;
+  width: 600px;
+  height: 100%;
+  order: 2;
+  background-color: lightgray; /* Add a background color for visualization */
+  margin-left: auto; /* Move to the right */
+}
