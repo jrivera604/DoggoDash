@@ -9,6 +9,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Home() {
   const { user } = useUser();
+  console.log(user)
   return (
     <div>
       <Head>
@@ -17,7 +18,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* //conditionally renders nav bar based if user exists */}
+      
         {user && (
           <nav>
             <SignedInNavbar />

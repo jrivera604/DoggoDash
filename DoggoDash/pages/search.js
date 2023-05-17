@@ -5,7 +5,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Search() {
   const { user } = useUser();
-
+console.log(user)
   return (
     //conditionally renders nav bar based if user exists
     
