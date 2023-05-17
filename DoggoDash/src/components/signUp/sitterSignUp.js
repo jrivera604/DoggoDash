@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { advancedSchema } from "./signUpFormSchema";
+import { advancedSchema, userSignUP } from "./signUpFormSchema";
 import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import axios from "axios";
@@ -38,7 +38,7 @@ export default function SignupForm() {
         postalCode: "",
         province: ""
       }}
-      validationSchema={advancedSchema}
+      validationSchema={userSignUP}
       onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (
