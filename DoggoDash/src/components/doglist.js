@@ -12,7 +12,7 @@ export default function DogList({ dogs }) {
       <ul role="list" className="divide-y divide-gray-100">
         {dogs.map((dog) => {
           return (
-            <li className="flex justify-between gap-x-6 py-5">
+            <li key={dog.id}  className="flex justify-between gap-x-6 py-5">
               <div className="flex gap-x-4">
                 <img
                   className="h-12 w-12 flex-none rounded-full bg-gray-50"

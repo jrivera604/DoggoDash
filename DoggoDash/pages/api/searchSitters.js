@@ -13,6 +13,7 @@ export default async function handler(req, res) {
       city: city, // Filter based on the specified city
     },
     select: {
+      id: true,
       firstName: true,
       lastName: true,
       city: true,

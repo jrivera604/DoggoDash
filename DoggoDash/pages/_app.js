@@ -4,6 +4,7 @@ import "styles/nav.scss"
 import "styles/form.scss"
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import "react-datepicker/dist/react-datepicker.css";
+import "styles/profileCalendar.css"
 
 
 export default function App({ Component, pageProps }) {
