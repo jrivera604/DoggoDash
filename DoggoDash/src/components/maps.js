@@ -1,6 +1,7 @@
 import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import styles from "../../styles/map.module.css";
+
 
 export default function Maps() {
   const { isLoaded } = useLoadScript({
@@ -9,24 +10,20 @@ export default function Maps() {
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        {/* Sidebar content */}
-      </div>
+
       <div className={styles.mapContainer}>
         <Map />
       </div>
-    </div>
   );
 }
 
 function Map() {
-    const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+    const center = useMemo(() => ({ lat: 43.651, lng: -79.347 }), []);
     const markerPosition = useMemo(() => ({ lat: 45, lng: -80.5 }), []);
   
     return (
-      <GoogleMap zoom={10} center={center} mapContainerClassName={styles.mapContainer}>
-        <Marker position={markerPosition} />
+      <GoogleMap zoom={9} center={center} mapContainerClassName={styles.mapContainer}>
+        <MarkerF position={center}/>
       </GoogleMap>
     );
   }
