@@ -137,7 +137,7 @@ export default function DogSitterProfile({ filteredCity }) {
                       <StarIcon
                         key={rating}
                         className={classNames(
-                          reviews.average > rating
+                          dogSitter.rating > rating
                             ? "text-gray-900"
                             : "text-gray-200",
                           "h-5 w-5 flex-shrink-0"
@@ -146,7 +146,7 @@ export default function DogSitterProfile({ filteredCity }) {
                       />
                     ))}
                   </div>
-                  <p className="sr-only">{reviews.average} out of 5 stars</p>
+                  <p className="sr-only">{dogSitter.rating} out of 5 stars</p>
                   <a
                     href={reviews.href}
                     className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
@@ -174,7 +174,7 @@ export default function DogSitterProfile({ filteredCity }) {
 
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                    {profile.description}
+                    {dogSitter.description}
                   </p>
                 </div>
               </div>
