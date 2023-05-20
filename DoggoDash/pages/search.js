@@ -8,11 +8,19 @@ import CenterContainer from '@/src/components/Search/centerContainer';
 
 export default function Search() {
   const { user } = useUser();
-
   const [filteredCity, setFilteredCity] = useState('');
+  const [minRating, setMinRating] = useState(0);
+  const [maxRating, setMaxRating] = useState(200);
+  const [dogSitters, setDogSitters] = useState([]);
 
-  const handleSearch = (city) => {
+  const handleSearch = (city, minRating, maxRating) => {
     setFilteredCity(city);
+    setMinRating(minRating);
+    setMaxRating(maxRating);
+  };
+
+  const handleDogSittersUpdate = (sitters) => {
+    setDogSitters(sitters);
   };
 
   return (
@@ -27,11 +35,18 @@ export default function Search() {
           <Navbar />
         </nav>
       )}
-      <div className="container">
-        <Sidebar onSearch={handleSearch} />
-        <CenterContainer filteredCity={filteredCity} />
-        <Maps />
+      <div style={{ width: "100%", display: "flex" }}>
+        <Sidebar onSearch={handleSearch} style={{ width: "25%" }} />
+        <CenterContainer
+          filteredCity={filteredCity}
+          minRating={minRating}
+          maxRating={maxRating}
+          onDogSittersUpdate={handleDogSittersUpdate}
+          style={{ width: "50%" }}
+        />
+        <Maps dogSitters={dogSitters} style={{ width: "25%" }} />
       </div>
     </div>
   );
 }
+

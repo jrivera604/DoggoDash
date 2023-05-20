@@ -8,11 +8,12 @@
     width: 80%;
     overflow-y: auto;
     background-color: #faf0e6;
+    height: 100vh
   }
   
   .dogSitterContainer {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     padding: 10px;
     border-bottom: 1px solid lightgray;
@@ -32,14 +33,17 @@
   }
   
   .sitterName {
-    font-size: 28px;
+    font-size: 24px;
     margin: 0;
+    font-family: "Arial", sans-serif;
+    color: #333;
   }
   
   .city {
-    font-size: 18px;
+    font-size: 16px;
     color: gray;
     margin: 0;
+    font-family: "Arial", sans-serif;
   }
   
   .rateContainer {
@@ -49,8 +53,15 @@
   }
   
   .rate {
-    font-size: 20px;
+    font-size: 18px;
     color: green;
     margin-top: 5px;
+    font-family: "Arial", sans-serif;
   }
   
+  /* Make the center container responsive */
+@media (max-width: 768px) {
+    .centerContainer {
+      width: 100%; /* Change to full width */
+    }
+  }
