@@ -6,8 +6,6 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
   const { city } = req.query;
 
-  console.log('Searching dog sitters for city:', city);
-
   const dogSitters = await prisma.user.findMany({
     where: {
       userType: 'dogSitter',
