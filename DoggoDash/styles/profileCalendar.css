@@ -1,13 +1,12 @@
 .react-calendar { 
-  width: px;
+  width: 400px;
   max-width: 100%;
-  background-color: #fff;
+  background-color: grey;
   color: #222;
-  border-radius: 20px;
+  border-radius: 8px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
-  margin-top:20px ;
  }
  .react-calendar__navigation button {
   color: #6f48eb;
@@ -87,8 +86,7 @@
   background: #6f48eb;
   color: white;
  } 
- 
- #calendarTitle{ 
-  margin-top: 20px;
-  margin-left:105px
- }
+
+ .react-calendar__tile--hasActive {
+  background: #008000;
+}

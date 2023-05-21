@@ -156,7 +156,7 @@ export default function DogSitterProfile({ filteredCity }) {
                 </div>
               </div>
               
-              <ProfileCalendar/>
+              <ProfileCalendar sitterAvailability = {dogSitter}/>
               
               <button
                 onClick={handleReplace}

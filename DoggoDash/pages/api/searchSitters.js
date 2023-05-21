@@ -17,6 +17,8 @@ export default async function handler(req, res) {
       firstName: true,
       lastName: true,
       city: true,
+      availabilityStart: true,
+      availabilityEnd: true,
       rating: true,
       description:true,
       rate: true, // Include the rate field
