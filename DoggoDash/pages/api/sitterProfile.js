@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   const dogSitter = await prisma.user.findUnique({
     where: {
-      id: parseInt(id),
+      id: 4,
     },
     select: {
       id: true,
