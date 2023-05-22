@@ -446,6 +446,11 @@ const users =
           postalCode: "V6R 1V3",
           email: "oliver.garcia@gmail.com",
           rate: 33,
+          rating: 5, 
+          availabilityStart: 2023-05-22,
+          availabilityEnd: 2023-05-27,
+          description: "Hello! As an experienced and dedicated dog sitter, I have a true passion for providing exceptional care to furry companions. With years of hands-on experience, I understand the unique needs of each dog and ensure their safety, comfort, and happiness at all times. From energetic walks and engaging playtime to cozy snuggles and gentle grooming, I go above and beyond to create a positive and nurturing environment for dogs under my care. Trustworthy, reliable, and with a genuine love for animals, I am committed to making every dog's stay a tail-wagging and joyful experience."
+
         },
         {
           userType: "dogSitter",
