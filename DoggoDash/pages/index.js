@@ -57,8 +57,8 @@ export default function Home() {
               <input
                 type="range"
                 id="dogWeight"
-                min={40}
-                max={300}
+                min={15}
+                max={100}
                 value={dogWeight}
                 onChange={handleDogWeightChange}
                 className={`${styles["form-input"]} ${styles["range-input"]}`}

@@ -26,7 +26,7 @@ const defaultProfileImage =
   return (
     <div className={styles.centerContainer}>
       {dogSitters.map((dogSitter) => (
-        <div key={dogSitter.id} className={styles.dogSitterContainer}>
+        <a key={dogSitter.id} className={styles.dogSitterContainer} href={`/search/${dogSitter.id}`}>
           <div className={styles.profilePictureContainer}>
             <img
               src={defaultProfileImage}
@@ -43,7 +43,7 @@ const defaultProfileImage =
               <p className={styles.rate}>Rate: ${dogSitter.rate} per night</p>
             </div>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   );

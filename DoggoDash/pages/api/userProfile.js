@@ -9,8 +9,6 @@ export default async function handler(req, res) {
     const city = req.body.data.city;
     const postalCode = req.body.data.postalCode;
     const province = req.body.data.province;
-    // const email = req.body.data.email;
-    // const password = req.body.data.password;
     const user = await prisma.user.create({
       data: {
         userType,
@@ -20,8 +18,6 @@ export default async function handler(req, res) {
         city,
         postalCode,
         province,
-        // email,
-        // password,
       },
     });
   }

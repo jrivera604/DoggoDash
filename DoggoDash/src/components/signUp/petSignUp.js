@@ -5,10 +5,13 @@ import CustomSelect from "./CustomSelect";
 import MyDatePicker from "./SelectDate";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function PetSignUpForm({ breeds }) {
   const router = useRouter();
-
+  const { user } = useUser(); 
+ 
+ 
   const onSubmit = async (values, actions) => {
     const data = {
       name: values.name,
@@ -17,8 +20,9 @@ export default function PetSignUpForm({ breeds }) {
       temperament: values.temperament,
       breedId: Number(values.breed),
       comments: values.comments,
+      userEmail: user.email
     };
-    console.log(data);
+    console.log(data)
     axios.post("/api/petSignUp", { data });
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();

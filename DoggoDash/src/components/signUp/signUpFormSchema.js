@@ -24,16 +24,6 @@ export const userSignUP = yup.object().shape({
       "select province"
     )
     .required("Required"),
-  // email: yup.string().required("Required"),
-  // password: yup
-  //   .string()
-  //   .min(5)
-  //   .matches(passwordRules, { message: "Please create a stronger password" })
-  //   .required("Required"),
-  // confirmPassword: yup
-  //   .string()
-  //   .oneOf([yup.ref("password"), null], "Passwords must match")
-  //   .required("Required"),
 });
 
 
