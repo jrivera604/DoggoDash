@@ -48,36 +48,30 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function DogSitterProfile({ filteredCity }) {
-  const [dogSitters, setDogSitters] = useState([]);
+export default function DogSitterProfile() {
+  const [dogSitter, setDogSitter] = useState({});
 
-  const searchDogSitters = async (city) => {
-    let response;
-    if (city) {
-      response = await axios.get(`/api/searchSitters?city=${city}`);
-    } else {
-      response = await axios.get(`/api/searchSitters`);
-    }
-    setDogSitters(response.data);
+  const router = useRouter();
+const currentUser = router.query.id
+  
+const handleReplace = () => {
+    router.replace("/messages");
+  };
+ 
+  const searchDogSitter = async () => {
+ const response = await axios.get(`/api/sitterProfile?id=${currentUser}`);
+    setDogSitter(response.data);
   };
 
   useEffect(() => {
-    // Fetch dog sitters based on the filtered city
-    searchDogSitters(filteredCity);
-  }, [filteredCity]);
-
-  const router = useRouter();
-
-  const handleReplace = () => {
-    router.replace("/messages");
-  };
+    searchDogSitter();
+  });
 
 
 
   return (
     <div className="bg-white">
-    
-      {dogSitters.map((dogSitter) => (
+      
         <div className="pt-6">
           {/* Image gallery */}
           <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -156,7 +150,7 @@ export default function DogSitterProfile({ filteredCity }) {
                 </div>
               </div>
               
-              <ProfileCalendar sitterAvailability = {dogSitter}/>
+              {/* <ProfileCalendar sitterAvailability = {dogSitter}/> */}
               
               <button
                 onClick={handleReplace}
