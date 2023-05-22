@@ -13,7 +13,20 @@ CREATE TABLE "User" (
     "createdAt" DATETIME DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
     "rate" INTEGER,
-    "sitterAvailability" TEXT
+    "rating" INTEGER,
+    "availabilityStart" DATETIME,
+    "availabilityEnd" DATETIME,
+    "description" TEXT,
+    "serviceCategory" TEXT
+);
+
+-- CreateTable
+CREATE TABLE "Review" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "comment" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" INTEGER NOT NULL,
+    CONSTRAINT "Review_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -51,15 +64,25 @@ CREATE TABLE "Breed" (
 );
 
 -- CreateTable
-CREATE TABLE "DogSitter" (
+CREATE TABLE "Availability" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "duration" DATETIME,
-    "value" INTEGER,
-    "rating" INTEGER,
-    "sitterId" INTEGER NOT NULL,
-    "dogId" INTEGER NOT NULL,
-    CONSTRAINT "DogSitter_sitterId_fkey" FOREIGN KEY ("sitterId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "DogSitter_dogId_fkey" FOREIGN KEY ("dogId") REFERENCES "Dog" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "day" TEXT NOT NULL,
+    "startTime" DATETIME NOT NULL,
+    "endTime" DATETIME NOT NULL,
+    "userId" INTEGER NOT NULL,
+    CONSTRAINT "Availability_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Booking" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "date" DATETIME NOT NULL,
+    "status" TEXT NOT NULL,
+    "message" TEXT,
+    "senderId" INTEGER NOT NULL,
+    "receiverId" INTEGER NOT NULL,
+    CONSTRAINT "Booking_senderId_fkey" FOREIGN KEY ("senderId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Booking_receiverId_fkey" FOREIGN KEY ("receiverId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

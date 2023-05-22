@@ -5,23 +5,49 @@ import axios from 'axios';
 const defaultProfileImage =
   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
-  export default function CenterContainer({ filteredCity }) {
-    const [dogSitters, setDogSitters] = useState([]);
+export default function CenterContainer({ filteredCity, minRating, maxRating, onDogSittersUpdate }) {
+  const [dogSitters, setDogSitters] = useState([]);
+
+  const searchDogSitters = async (city, minRating, maxRating) => {
+    try {
+      let response = await axios.get(`/api/searchSitters`);
+      let filteredDogSitters = response.data;
   
-    const searchDogSitters = async (city) => {
-      let response;
       if (city) {
-        response = await axios.get(`/api/searchSitters?city=${city}`);
-      } else {
-        response = await axios.get(`/api/searchSitters`);
+        filteredDogSitters = filteredDogSitters.filter(
+          (dogSitter) => dogSitter.city.toLowerCase() === city.toLowerCase()
+        );
       }
-      setDogSitters(response.data);
-    };
   
-    useEffect(() => {
-      // Fetch dog sitters based on the filtered city
-      searchDogSitters(filteredCity);
-    }, [filteredCity]);
+      const min = minRating !== '' ? parseInt(minRating) : undefined;
+      const max = maxRating !== '' ? parseInt(maxRating) : undefined;
+  
+      filteredDogSitters = filteredDogSitters.filter((dogSitter) => {
+        if (min !== undefined && dogSitter.rate < min) {
+          return false;
+        }
+        if (max !== undefined && dogSitter.rate > max) {
+          return false;
+        }
+        return true;
+      });
+  
+      setDogSitters(filteredDogSitters);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  
+  
+  
+  useEffect(() => {
+    searchDogSitters(filteredCity, minRating, maxRating);
+  }, [filteredCity, minRating, maxRating]);
+
+  useEffect(() => {
+    onDogSittersUpdate(dogSitters);
+  }, [dogSitters]);
 
   return (
     <div className={styles.centerContainer}>
@@ -47,5 +73,4 @@ const defaultProfileImage =
       ))}
     </div>
   );
-  
 }

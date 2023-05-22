@@ -84,7 +84,7 @@ export default function Home() {
                 className={styles["form-input"]}
               />
             </div>
-            <button type="submit" className={styles["submit-button"]}>
+            <button href= "/search" type="submit" className={styles["submit-button"]}>
               Submit
             </button>
           </form>

@@ -44,6 +44,7 @@
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "tailwind": "^4.0.0",
+    "use-places-autocomplete": "^4.0.0",
     "yup": "^1.1.1"
   },
   "devDependencies": {
