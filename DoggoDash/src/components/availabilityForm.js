@@ -41,7 +41,6 @@ export default function AvailabilityForm() {
 
   return (
     <div>
-      <h3>Create Availability</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="day">Day:</label>
