@@ -4,12 +4,15 @@ import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function SignupForm() {
   const router = useRouter()
+  const { user } = useUser();
   
   const onSubmit = async (values, actions) => {
     const data = {
+      email: user.email,
       userType: values.userType,
       firstName: values.firstName,
       lastName: values.lastName,
@@ -45,6 +48,16 @@ export default function SignupForm() {
     >
       {({ isSubmitting }) => (
         <Form>
+                    {/* Uses Auth0 to fill email field with current user email */}
+         {user && (
+          <CustomInput
+            label="Email"
+            name="email"
+            type="text"
+            value={user.email}
+            disabled
+            />
+          )}
           <CustomSelect
             label="User Type"
             name="userType"
