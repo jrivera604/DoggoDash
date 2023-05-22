@@ -17,7 +17,7 @@ model User {
   createdAt           DateTime?     @default(now()) 
   updatedAt           DateTime?     @updatedAt
   rate                Int?
-  rating              Int?          
+  rating              Decimal?          
   availabilityStart   DateTime?
   availabilityEnd     DateTime?
   description         String?
