@@ -1,25 +1,35 @@
-import { useMemo, useEffect } from "react";
-import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import React from 'react';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import AvailabilityForm from '../src/components/availabilityForm';
+import Navbar from '@/src/components/nav.js' 
+import SignedInNavbar from '@/src/components/signedInNav.js';
 
+export default function CreateAvailabilityPage() {
+  const { user, isLoading } = useUser();
 
-
-
-export default function Maptest() {
-    const { isLoaded } = useLoadScript({
-      googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    });
-     
-    if (!isLoaded) return <div>Loading...</div>
-    return <Map />;
-
-}
-
-function Map() {
-    const center = useMemo(() => ({ lat: 43.651, lng: -79.347 }), []);
-  
-    return (
-      <GoogleMap zoom={9} center={{ lat: 43.651, lng: -79.347 }} mapContainerClassName="map-container">
-        <MarkerF position={{ lat: 43.651, lng: -79.347 }} />
-      </GoogleMap>
-    );
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
+  return (
+    
+    <div>
+      {user && (
+        <nav>
+          <SignedInNavbar />
+        </nav>
+      )}
+      {!user && (
+        <nav>
+          <Navbar />
+        </nav>
+      )}
+      <h1>Create Availability Page</h1>
+      {user ? (
+        <AvailabilityForm user={user} />
+      ) : (
+        <div>Please log in to create availability.</div>
+      )}
+    </div>
+  );
+}
