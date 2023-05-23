@@ -3,6 +3,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { useRouter } from "next/router";
 import ProfileCalendar from "@/src/components/profileCalendar";
+import BookingButton from "@/src/components/bookingButton";
 
 const profile = {
   href: "#",
@@ -48,7 +49,7 @@ export default function DogSitterProfile() {
 
   useEffect(() => {
     searchDogSitter();
-  });
+  }, []);
 
   return (
     <div className="bg-white">
@@ -138,6 +139,9 @@ export default function DogSitterProfile() {
             >
               Contact
             </button>
+            <div>
+            <BookingButton senderId={currentUser} receiverId={dogSitter.id} />
+            </div>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
