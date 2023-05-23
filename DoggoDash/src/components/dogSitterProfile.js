@@ -10,15 +10,19 @@ const profile = {
   images: [
     {
       src: "https://images.unsplash.com/photo-1594283255808-ee728c775ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFuJTIwd2l0aCUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
+      
     },
     {
       src: "https://images.unsplash.com/photo-1587207405587-9b5047cb3c18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nzl8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+      
     },
     {
       src: "https://images.unsplash.com/photo-1588618215037-229aa2c1bd61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=449&q=80",
+
     },
     {
       src: "https://images.unsplash.com/photo-1587044888697-5596206bf063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODN8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+
     },
   ],
 
@@ -36,19 +40,20 @@ export default function DogSitterProfile() {
 
   const router = useRouter();
   const currentUser = router.query.id;
-
+console.log("fire",currentUser)
   const handleReplace = () => {
     router.replace("/messages");
   };
 
   const searchDogSitter = async () => {
     const response = await axios.get(`/api/sitterProfile?id=${currentUser}`);
+    console.log(response.data)
     setDogSitter(response.data);
   };
 
   useEffect(() => {
     searchDogSitter();
-  });
+  },[]);
 
   return (
     <div className="bg-white">

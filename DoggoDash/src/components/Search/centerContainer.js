@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/centerContainer.module.css';
 import axios from 'axios';
+import Link from 'next/link';
 
 const defaultProfileImage =
   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
@@ -52,7 +53,7 @@ export default function CenterContainer({ filteredCity, minRating, maxRating, on
   return (
     <div className={styles.centerContainer}>
       {dogSitters.map((dogSitter) => (
-        <a key={dogSitter.id} className={styles.dogSitterContainer} href={`/search/${dogSitter.id}`}>
+        <Link key={dogSitter.id} className={styles.dogSitterContainer} href={`/search/${dogSitter.id}`}>
           <div className={styles.profilePictureContainer}>
             <img
               src={defaultProfileImage}
@@ -69,7 +70,7 @@ export default function CenterContainer({ filteredCity, minRating, maxRating, on
               <p className={styles.rate}>Rate: ${dogSitter.rate} per night</p>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
     </div>
   );
