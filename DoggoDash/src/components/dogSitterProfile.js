@@ -37,16 +37,29 @@ export default function DogSitterProfile() {
 
   const router = useRouter();
   const currentUser = router.query.id;
+  console.log("current user", currentUser)
 
   const handleReplace = () => {
     router.replace("/messages");
   };
 
   const searchDogSitter = async () => {
-    const response = await axios.get(`/api/sitterProfile?id=${currentUser}`);
-    setDogSitter(response.data);
+    try {
+      const response = await axios.get(`/api/sitterProfile?id=${currentUser}`);
+      const fetchedDogSitter = response.data;
+  
+      // Update the dogSitter object to include the id property
+      const updatedDogSitter = {
+        ...fetchedDogSitter,
+        id: fetchedDogSitter.id, // Assign the id value from the fetchedDogSitter
+      };
+  
+      setDogSitter(updatedDogSitter);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
+  
   useEffect(() => {
     searchDogSitter();
   }, []);

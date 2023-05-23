@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0/client';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-export default function BookingButton({ senderId, receiverId }) {
+export default function BookingButton({ receiverId }) {
+  const { user, isLoading } = useUser();
+  const [selectedDate, setSelectedDate] = useState(null);
+
   const handleBooking = async () => {
+    if (!user) {
+      // Redirect to the login page if the user is not signed in
+      window.location.href = '/api/auth/login';
+      return;
+    }
+
+    const senderId = user.email; // Use the user's email as the senderId
+
     try {
       // Perform the API call to create a booking
       const response = await fetch('/api/createBooking', {
@@ -12,7 +26,7 @@ export default function BookingButton({ senderId, receiverId }) {
         body: JSON.stringify({
           senderId,
           receiverId,
-          // Additional booking data if needed
+          selectedDate,
         }),
       });
 
@@ -29,5 +43,19 @@ export default function BookingButton({ senderId, receiverId }) {
     }
   };
 
-  return <button onClick={handleBooking}>Book</button>;
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div>
+    <h1>Select Date</h1>
+      <DatePicker
+        selected={selectedDate}
+        onChange={date => setSelectedDate(date)}
+        dateFormat="yyyy-MM-dd"
+      />
+      <button onClick={handleBooking}>Book</button>
+    </div>
+  );
 }

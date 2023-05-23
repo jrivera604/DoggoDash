@@ -8,18 +8,15 @@ export default async function handler(req, res) {
   }
 
   const { senderId, receiverId } = req.body;
+  console.log("receiverId", typeof receiverId); // Log the type of receiverId
 
   try {
-    // Convert senderId and receiverId to integers
-    const parsedSenderId = parseInt(senderId);
-    const parsedReceiverId = parseInt(receiverId);
-
     // Check if the sender and receiver exist
     const sender = await prisma.user.findUnique({
-      where: { id: parsedSenderId },
+      where: { email: senderId },
     });
     const receiver = await prisma.user.findUnique({
-      where: { id: parsedReceiverId },
+      where: { id: parseInt(receiverId) },
     });
 
     if (!sender || !receiver) {
@@ -29,8 +26,8 @@ export default async function handler(req, res) {
     // Create the booking
     const booking = await prisma.booking.create({
       data: {
-        sender: { connect: { id: parsedSenderId } },
-        receiver: { connect: { id: parsedReceiverId } },
+        sender: { connect: { email: senderId } },
+        receiver: { connect: { id: parseInt(receiverId) } },
         date: new Date(),
         status: 'pending',
         // Additional booking data if needed
