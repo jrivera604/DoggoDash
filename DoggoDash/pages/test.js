@@ -24,7 +24,7 @@ export default function CreateAvailabilityPage() {
           <Navbar />
         </nav>
       )}
-      <h1>Create Availability Page</h1>
+  
       {user ? (
         <AvailabilityForm user={user} />
       ) : (
