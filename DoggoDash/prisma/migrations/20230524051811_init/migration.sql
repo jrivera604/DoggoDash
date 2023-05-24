@@ -17,7 +17,8 @@ CREATE TABLE "User" (
     "availabilityStart" DATETIME,
     "availabilityEnd" DATETIME,
     "description" TEXT,
-    "serviceCategory" TEXT
+    "serviceCategory" TEXT,
+    "profilePicture" TEXT
 );
 
 -- CreateTable
