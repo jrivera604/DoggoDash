@@ -8,8 +8,8 @@ const logo = { name: "DOGGO DASH", href: "/", current: false };
 
 const url = "https://dev-fgoqn1efup3417h1.us.auth0.com/u/signup?state=hKFo2SBJQ1BVU2F6U05SNm1SSXdzTl9aWXhFc0NrZXRPMzQ0SKFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIGRRVlItTXZyd2t5ekhfZUxxU2Y3c3ZQS0F4aTZOeEYxo2NpZNkgZUVkbm42cDNPNVZXTjZOU0laanhGdzRaZmtod3dkMHA"
 const signedOutNavigationRight = [
-  { name: "Sign In", href: "/api/auth/login", current: false },
-  { name: "Sign Up", href: `${url}`, current: false},
+  { name: "Sign Up", href: "/api/auth/login", current: false },
+  // { name: "Sign Up", href: `${url}`, current: false},
 ];
 
 const signedOutNavigationLeft = [

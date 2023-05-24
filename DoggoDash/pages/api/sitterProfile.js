@@ -23,6 +23,7 @@ export default async function handler(req, res) {
         province: true,
         postalCode: true,
         rate: true,
+        profilePicture:true
       },
     });
     res.status(200).json(dogSitter);
