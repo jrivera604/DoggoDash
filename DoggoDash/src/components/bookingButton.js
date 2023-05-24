@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 
 export default function BookingButton({ receiverId }) {
   const { user, isLoading } = useUser();
@@ -35,7 +37,19 @@ export default function BookingButton({ receiverId }) {
         return;
       }
       
-      alert("Booking request Sent")
+      confirmAlert({
+        title: 'Booking Request Sent',
+        message: 'Your booking request has been sent successfully.',
+        buttons: [
+          {
+            label: 'OK',
+            onClick: () => {
+              // Handle any UI updates or further actions after the user clicks OK
+            },
+          },
+        ],
+      });
+
       const data = await response.json();
       console.log(data);
       // Handle the response and any UI updates
@@ -50,7 +64,7 @@ export default function BookingButton({ receiverId }) {
 
   return (
     <div>
-    <h1>Select Date</h1>
+      <h1>Select Date</h1>
       <DatePicker
         selected={selectedDate}
         onChange={date => setSelectedDate(date)}
