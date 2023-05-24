@@ -67,10 +67,15 @@
   }  
 
   .hoverShadow:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Adjust the shadow effect as per your preference */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   } 
 
   .description{ 
     width: 65%;
     margin-left: 15px
   }
+
+
+  .selectedName {
+  color: red;
+}
