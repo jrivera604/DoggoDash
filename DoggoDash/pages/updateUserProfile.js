@@ -4,7 +4,7 @@ import SignedInNavbar from '@/src/components/signedInNav.js'
 import SignupForm from '@/src/components/signUp/userSignUp';
 import { PrismaClient } from "@prisma/client";
 
-export default function Profile({ userProfiles }) {
+export default function Profile({ serializedUserProfiles }) {
   const { user, error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -15,7 +15,7 @@ export default function Profile({ userProfiles }) {
     (
       <div>
        <SignedInNavbar/>
-        <SignupForm userProfiles={userProfiles} />
+        <SignupForm userProfiles={serializedUserProfiles} />
         
       </div>
     )
@@ -26,7 +26,23 @@ export async function getStaticProps() {
   const prisma = new PrismaClient();
   const userProfiles = await prisma.user.findMany();
 
+  
+  const serializedUserProfiles = userProfiles.map((userProfile) => {
+    return {
+      firstName: userProfile.firstName,
+      lastName: userProfile.lastName,
+      userType: userProfile.userType,
+      email: userProfile.email,
+      streetAddress: userProfile.streetAddress,
+      city: userProfile.city,
+      postalCode: userProfile.postalCode,
+      province: userProfile.province,
+      rating: Number(userProfile.rating)
+    };
+  });
+  
+  
   return {
-    props: { userProfiles },
+    props: { serializedUserProfiles },
   };
 }

@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   const { senderId, receiverId } = req.body;
   console.log("receiverId", typeof receiverId); // Log the type of receiverId
-
+  console.log("senderId", senderId)
   try {
     // Check if the sender and receiver exist
     const sender = await prisma.user.findUnique({

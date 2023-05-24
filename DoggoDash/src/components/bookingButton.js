@@ -13,9 +13,9 @@ export default function BookingButton({ receiverId }) {
       window.location.href = '/api/auth/login';
       return;
     }
-
+    
     const senderId = user.email; // Use the user's email as the senderId
-
+    
     try {
       // Perform the API call to create a booking
       const response = await fetch('/api/createBooking', {
@@ -29,12 +29,13 @@ export default function BookingButton({ receiverId }) {
           selectedDate,
         }),
       });
-
+      
       if (!response.ok) {
         console.error('Error creating booking:', response.statusText);
         return;
       }
-
+      
+      // alert("Booking request Sent")
       const data = await response.json();
       console.log(data);
       // Handle the response and any UI updates

@@ -4,11 +4,16 @@ import { PrismaClient } from "@prisma/client";
 import Navbar from "@/src/components/nav.js";
 import SignedInNavbar from "@/src/components/signedInNav.js";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/router";
 
 
 
 export default function Home() {
   const [dogWeight, setDogWeight] = useState(40);
+  const router = useRouter();
+  const handleReplace = () => {
+    router.replace("/search");
+  };
 
   const handleDogWeightChange = (event) => {
     setDogWeight(event.target.value);
@@ -29,7 +34,7 @@ export default function Home() {
       )}
       <div className={styles["form-container"]}>
         <div className={styles.card}>
-          <form>
+          {/* <form>
             <div className={styles["form-row"]}>
               <label htmlFor="zipCode" className={styles.label}>
                 Zip Code:
@@ -84,10 +89,10 @@ export default function Home() {
                 className={styles["form-input"]}
               />
             </div>
-            <button href= "/search" type="submit" className={styles["submit-button"]}>
-              Submit
-            </button>
-          </form>
+          </form> */}
+          <button href= "/search" onClick={handleReplace} className={styles["submit-button"]}>
+            Find A Dog SItter
+          </button>
         </div>
       </div>
     </>
