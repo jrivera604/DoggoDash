@@ -74,3 +74,8 @@
     width: 65%;
     margin-left: 15px
   }
+
+
+  .selectedName {
+  color: red;
+}

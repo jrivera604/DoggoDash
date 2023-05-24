@@ -35,7 +35,7 @@ export default function BookingButton({ receiverId }) {
         return;
       }
       
-      // alert("Booking request Sent")
+      alert("Booking request Sent")
       const data = await response.json();
       console.log(data);
       // Handle the response and any UI updates

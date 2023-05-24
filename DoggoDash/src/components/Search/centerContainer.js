@@ -9,6 +9,7 @@ export default function CenterContainer({
   minRating,
   maxRating,
   onDogSittersUpdate,
+  selectedDogSitterId, // New prop to track the selected dog sitter
 }) {
   const [dogSitters, setDogSitters] = useState([]);
 
@@ -55,15 +56,18 @@ export default function CenterContainer({
   }, [dogSitters]);
 
   const defaultProfileImage =
-  "https://img.freepik.com/free-photo/young-beautiful-woman-pink-warm-sweater-natural-look-smiling-portrait-isolated-long-hair_285396-896.jpg"
-    
-  
+    "https://img.freepik.com/free-photo/young-beautiful-woman-pink-warm-sweater-natural-look-smiling-portrait-isolated-long-hair_285396-896.jpg";
+
+
   return (
     <div className={styles.centerContainer}>
       {dogSitters.map((dogSitter) => (
         <Link
           key={dogSitter.id}
-          className={`${styles.dogSitterContainer} ${styles.hoverShadow}`}
+          id={dogSitter.id}
+          className={`${styles.dogSitterContainer} ${
+            selectedDogSitterId === dogSitter.id ? styles.selected : ""
+          }`}
           href={`/search/${dogSitter.id}`}
         >
           <div className={styles.profilePictureContainer}>
@@ -74,8 +78,12 @@ export default function CenterContainer({
             />
           </div>
           <div>
-            <p className={styles.sitterName}>
-              {dogSitter.firstName} {dogSitter.lastName}
+            <p
+              className={`${styles.sitterName} ${
+                selectedDogSitterId === dogSitter.id ? styles.selectedName : ""
+              }`}
+            >
+              <span>{dogSitter.firstName}</span> {dogSitter.lastName}
             </p>
             <p className={styles.city}>City: {dogSitter.city}</p>
             <div className={styles.rateContainer}>
@@ -84,24 +92,19 @@ export default function CenterContainer({
             <div className="flex items-center">
               {[0, 1, 2, 3, 4].map((rating) => {
                 const starClassName =
-                  dogSitter.rating > rating
-                  ? "text-yellow-400"
-                    : "text-gray-400";
-                    
-                    return (
-                      <StarIcon
-                      key={rating}
-                      className={classNames(
-                        starClassName,
-                        "h-5 w-5 flex-shrink-0"
-                        )}
-                        aria-hidden="true"
-                        />
-                        );
-                      })}
+                  dogSitter.rating > rating ? "text-yellow-400" : "text-gray-400";
+
+                return (
+                  <StarIcon
+                    key={rating}
+                    className={classNames(starClassName, "h-5 w-5 flex-shrink-0")}
+                    aria-hidden="true"
+                  />
+                );
+              })}
             </div>
+            <p className={styles.description}>"{dogSitter.description}"</p>
           </div>
-                      <p className={styles.description}> "{dogSitter.description}"</p>
         </Link>
       ))}
     </div>
