@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/sidebar.module.css';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Sidebar({ onSearch }) {
   const [city, setCity] = useState('');
   const [minRating, setMinRating] = useState(1);
-  const [maxRating, setMaxRating] = useState(200);
+  const [maxRating, setMaxRating] = useState(100);
 
   const handleSearch = () => {
     onSearch(city, parseInt(minRating), parseInt(maxRating));
@@ -12,7 +14,7 @@ export default function Sidebar({ onSearch }) {
 
   return (
     <div className={styles.sidebar}>
-      <h1>Filter</h1>
+      <label className="text-2xl font-bold tracking-tight sm:text-3xl">FILTER</label>
       <input
         type="text"
         placeholder="Enter city"
@@ -20,7 +22,7 @@ export default function Sidebar({ onSearch }) {
         onChange={(e) => setCity(e.target.value)}
       />
       <div>
-        <label>Min Rating:</label>
+      <label className="text-2xl font-bold tracking-tight sm:text-3xl">MIN RATE</label>
         <input
           type="number"
           value={minRating}
@@ -28,14 +30,19 @@ export default function Sidebar({ onSearch }) {
         />
       </div>
       <div>
-        <label>Max Rating:</label>
+      <label className="text-2xl font-bold tracking-tight sm:text-3xl">MAX RATE</label>
         <input
           type="number"
           value={maxRating}
           onChange={(e) => setMaxRating(e.target.value)}
         />
       </div>
-      <button onClick={handleSearch}>Search</button>
+      <div className="flex justify-center">
+        <button className="rounded-md" onClick={handleSearch}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} fixedWidth />
+          Search
+        </button>
+      </div>
     </div>
   );
 }

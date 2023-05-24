@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass,faRightToBracket, faDog } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass,faUserPlus, faDog } from '@fortawesome/free-solid-svg-icons'
 
 
 function classNames(...classes) {
@@ -12,6 +12,7 @@ export default function Navbar() {
     <nav className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-start">
+          
           <div className="flex flex-1 items-center sm:items-stretch justify-start">
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 ">
@@ -49,7 +50,7 @@ export default function Navbar() {
                   className="text-gray-300 hover:bg-gray-700 hover:text-white  
             rounded-md px-6 py-2 flex items-center text-sm font-medium bg-gray-700"
                 >
-                  <FontAwesomeIcon icon={faRightToBracket} fixedWidth />
+                  <FontAwesomeIcon icon={faUserPlus} fixedWidth />
                   <span className="flex items-center ml-2 whitespace-nowrap">
                     Sign up
                   </span>
