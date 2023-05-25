@@ -36,10 +36,16 @@
     width: 80px; /* Add this line to reduce the width of the button */
   }
   
-  .booking-item button:hover {
-    background-color:red;
+
+  .booking-button-cancel:hover {
+     background-color:red;
   } 
 
+   .booking-button-accept:hover {
+     background-color:rgb(61, 255, 47);
+  }
+  
+  
   .booking-item hr {
   border: none;
   border-top: 1px solid #bdbdbd;

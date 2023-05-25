@@ -3,6 +3,8 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import styles from '../../styles/message.module.css';
+import {faEnvelope, faPaperPlane, faUsers} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Chat() {
   const [socket, setSocket] = useState(null);
@@ -80,31 +82,19 @@ export default function Chat() {
   };
 
   return (
+    
     <div className={styles['chat-container']}>
-      <div className={styles['online-users']}>
-        <div className={styles['online-users-header']}>
-          Active Users
-        </div>
-        <div className={styles['online-users-body']}>
-          {activeUsers.map((username) => (
-            <div
-              className={styles['user-item']}
-              key={username}
-              onClick={() => handleUserClick(username)}
-            >
-              {username}
-            </div>
-          ))}
-        </div>
-      </div>
+    
       <div className={styles['chat-area']}>
+        <h1 className=" flex justify-center text-2xl font-bold tracking-tight sm:text-2xl">
+            
+          </h1>
         <div className={styles['chat-header']}>
           <div className={styles['chat-name']}>
+        <FontAwesomeIcon icon={faEnvelope} className="mr-3" size="lg" />
             Conversation Name: {chosenUsername}
           </div>
-          <button className={styles['leave-btn']}>
-            Leave Chat
-          </button>
+       
         </div>
         <div className={styles['chat-box']}>
           {messages.map((msg, i) => (
@@ -128,6 +118,7 @@ export default function Chat() {
             />
           </div>
           <button className={styles['send-btn']} onClick={sendMessage}>
+          <FontAwesomeIcon icon={faPaperPlane} className="mr-3" size="lg" />
             Send
           </button>
         </div>

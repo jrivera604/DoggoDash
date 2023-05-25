@@ -126,12 +126,12 @@ export default function DogSitterBookings() {
           <p>Dog Owner: {booking.sender.firstName} {booking.sender.lastName}</p>
           <p>Dog Sitter: {booking.receiver.firstName} {booking.receiver.lastName}</p>
           {(booking.receiver.email === user.email && booking.status === 'pending') && (
-            <button className={`${styles['booking-button']} w-20`} onClick={() => handleAcceptBooking(booking.id)}>
+            <button className={`${styles['booking-button-accept']} w-20`} onClick={() => handleAcceptBooking(booking.id)}>
               Accept
             </button>
           )}
           {(booking.sender.email || booking.receiver.email === user.email) && (booking.status === 'accepted' || booking.status === 'pending') && (
-            <button className={`${styles['booking-button']} w-20`} onClick={() => handleCancelBooking(booking.id)}>
+            <button className={`${styles['booking-button-cancel']} w-20`} onClick={() => handleCancelBooking(booking.id)}>
               Cancel
             </button>
           )}
