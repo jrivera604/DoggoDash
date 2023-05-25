@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
-import styles from '../../styles/chat.module.css';
+import styles from '../../styles/message.module.css';
 
 
 export default function Chat() {
@@ -82,36 +82,83 @@ export default function Chat() {
 
   return (
     <div className={styles['chat-container']}>
-      <main className={styles['chat-messages']}>
-        <p className="font-bold text-white text-xl">
-          Your username: {username}
-        </p>
-        <div className={styles['chat-message-container']}>
-          {messages.map((msg, i) => {
-            return (
-              <div
-                className={styles['chat-message']}
-                key={i}
-              >
-                {msg.author} : {msg.message}
-              </div>
-            );
-          })}
+      <div className={styles['online-users']}>
+        <div className={styles['online-users-header']}>
+          Active Users
         </div>
-        <div className={styles['chat-form']}>
-          <input
-            type="text"
-            placeholder="New message..."
-            value={message}
-            className={styles['chat-input']}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyUp={handleKeypress}
-          />
-          <div className={styles['chat-send-button']} onClick={() => sendMessage()}>
-            Send
+        <div className={styles['online-users-body']}>
+          <div className={styles['user-item']}>
+            Jacob
+          </div>
+          <div className={styles['user-item']}>
+            Emily
           </div>
         </div>
-      </main>
+      </div>
+      <div className={styles['chat-area']}>
+        <div className={styles['chat-header']}>
+          <div className={styles['chat-name']}>
+            Conversation Name
+          </div>
+          <button className={styles['leave-btn']}>
+            Leave Chat
+          </button>
+        </div>
+        <div className={styles['chat-box']}>
+        {messages.map((msg, i) => {
+          return (
+            <div className={styles['message-row']} key={`messageRowItem${i}`}>
+              {
+                msg.author != username ?
+                <div className={styles['bubble-receive']}>{ msg.message }</div> :
+                <div className={styles['bubble-sent']}>{ msg.message }</div>
+              }
+            </div>
+          )  
+        })
+        }
+        </div>
+        <div className={styles['chat-footer']}>
+          <div className={styles['chat-input']}>
+            <input type='text' placeholder='New message...' value={message} onChange={(e) => setMessage(e.target.value)}  onKeyUp={handleKeypress} />
+          </div>
+          <button className={styles['send-btn']} onClick={() => sendMessage()}>
+            Send
+          </button>
+        </div>
+      </div>
     </div>
+    // <div className={styles['chat-container']}>
+    //   <main className={styles['chat-messages']}>
+    //     <p className="font-bold text-white text-xl">
+    //       Your username: {username}
+    //     </p>
+    //     <div className={styles['chat-message-container']}>
+    //       {messages.map((msg, i) => {
+    //         return (
+    //           <div
+    //             className={styles['chat-message']}
+    //             key={i}
+    //           >
+    //             {msg.author} : {msg.message}
+    //           </div>
+    //         );
+    //       })}
+    //     </div>
+    //     <div className={styles['chat-form']}>
+    //       <input
+    //         type="text"
+    //         placeholder="New message..."
+    //         value={message}
+    //         className={styles['chat-input']}
+    //         onChange={(e) => setMessage(e.target.value)}
+    //         onKeyUp={handleKeypress}
+    //       />
+    //       <div className={styles['chat-send-button']} onClick={() => sendMessage()}>
+    //         Send
+    //       </div>
+    //     </div>
+    //   </main>
+    // </div>
   );
 }   

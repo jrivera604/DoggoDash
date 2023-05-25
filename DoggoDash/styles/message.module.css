@@ -1,0 +1,135 @@
+
+.chat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 4rem);
+  /* max-width: 80rem;
+  margin: 0 auto; */
+  background-color: #607eaa;
+}
+
+.chat-container .online-users {
+  height: 100%;
+  width: 300px;
+ 
+}
+
+.online-users .online-users-header {
+  padding: 20px;
+  height: 5rem;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.online-users .online-users-body {
+  padding: 16px;
+}
+
+.online-users .online-users-body .user-item {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.online-users .online-users-body .user-item:not(:first-child) {
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+
+.chat-container .chat-area {
+  height: 100%;
+  width: calc(100% - 300px);
+}
+
+.chat-area .chat-header, .chat-area .chat-footer {
+  padding: 20px;
+  height: 5rem;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header .chat-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-header .leave-btn {
+  padding:10px;
+  width: 150px;
+  border:none;
+  outline:none;
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(55 65 81 / 1);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.chat-area .chat-box {
+  background: #fff;
+  width: 100%;
+  height: calc(100% - 10rem);
+  overflow: auto;
+}
+
+.chat-box .message-row {
+  width: 100%;
+  padding: 10px;
+  display:flex;
+}
+
+.message-row .bubble-receive, .message-row .bubble-sent{
+  border-radius: 5px;
+  padding: 10px;
+  white-space: normal;
+  align-items: center;
+  max-width: 70%;
+  min-width: 10%;
+}
+
+.message-row .bubble-receive{
+  background-color: #f5ccc2;
+}
+
+.message-row .bubble-sent{
+  background-color: #607eaa;
+  color:#fff;
+}
+
+.message-row:has(.bubble-sent) {
+  justify-content: flex-end;
+}
+
+.message-row:has(.bubble-receive) {
+  justify-content: flex-start;
+}
+
+.chat-area .chat-footer .chat-input {
+  width: calc(100% - 150px);
+}
+
+.chat-area .chat-footer .chat-input input {
+  border-radius: 0;
+  background-color: #fff1ff;
+  border: 1px solid rgba(0,0,0,0.3);
+  color: #222;
+}
+
+.chat-area .chat-footer .send-btn {
+  padding:10px;
+  width: 150px;
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(55 65 81 / 1);
+  text-transform: uppercase;
+  font-weight: 500;
+}
