@@ -11,8 +11,8 @@ export default function DogSitterBookings() {
     if (user) {
       console.log('userId:', user.id); // Log the userId
       try {
-        const senderId = user.email; // Use the user's email as the senderId
-        const response = await fetch(`/api/fetchBookings?senderId=${encodeURIComponent(senderId)}`);
+        const senderEmail = user.email; // Use the user's email as the senderEmail
+        const response = await fetch(`/api/fetchBookings?senderEmail=${encodeURIComponent(senderEmail)}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -108,17 +108,24 @@ export default function DogSitterBookings() {
   return (
     <div>
       <h1>My Bookings</h1>
-      {bookings.map((booking) => (
-        <div key={booking.id}>
-          <p>Date: {booking.date}</p>
-          <p>Status: {booking.status}</p>
-          <p>Dog Owner: {booking.sender.firstName} {booking.sender.lastName}</p>
-          <p>Dog Sitter: {booking.receiver.firstName} {booking.receiver.lastName}</p>
-          <button onClick={() => handleAcceptBooking(booking.id)}>Accept</button>
-          <button onClick={() => handleCancelBooking(booking.id)}>Cancel</button>
-          <hr />
-        </div>
-      ))}
+      {bookings.map((booking) => {
+        return (
+          <div key={booking.id}>
+            <p>Date: {booking.date}</p>
+            <p>Status: {booking.status}</p>
+            <p>Dog Owner: {booking.sender.firstName} {booking.sender.lastName}</p>
+            <p>Dog Sitter: {booking.receiver.firstName} {booking.receiver.lastName}</p>
+            {(booking.receiver.email === user.email && booking.status === 'pending') && (
+              <button onClick={() => handleAcceptBooking(booking.id)}>Accept</button>
+            )}
+            {(booking.sender.email || booking.receiver.email === user.email && (booking.status === 'accepted' || booking.status === 'pending')) && (
+              <button onClick={() => handleCancelBooking(booking.id)}>Cancel</button>
+            )}
+            <hr />
+          </div>
+        );
+      })}
     </div>
   );
+  
 }

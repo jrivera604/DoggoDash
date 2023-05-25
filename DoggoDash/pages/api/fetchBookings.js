@@ -7,14 +7,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { senderId } = req.query; // Assuming the sender's email address is passed as a query parameter
+  const { senderEmail } = req.query; // Assuming the sender's email address is passed as a query parameter
 
-  console.log('Received senderId:', senderId); // Log the received senderId
+  console.log('Received senderEmail:', senderEmail); // Log the received senderEmail
 
   try {
     const user = await prisma.user.findUnique({
       where: {
-        email: senderId,
+        email: senderEmail,
       },
     });
 
@@ -32,10 +32,12 @@ export default async function handler(req, res) {
         ],
       },
       include: {
-        sender: { select: { firstName: true, lastName: true } },
-        receiver: { select: { firstName: true, lastName: true } },
+        sender: { select: { id: true, firstName: true, lastName: true, email: true } },
+        receiver: { select: { id: true, firstName: true, lastName: true, email: true } },
       },
     });
+    
+    
 
     console.log('Fetched bookings:', bookings); // Log the fetched bookings
 
