@@ -73,7 +73,7 @@ export default function SignupForm({ userProfiles }) {
             label="User Type"
             name="userType"
             placeholder="Please select a user type"
-            // value={currentUser.userType}
+          
           >
             <option value="">Please select an account type</option>
             <option value="dogOwner">Dog Owner</option>
@@ -84,7 +84,7 @@ export default function SignupForm({ userProfiles }) {
             name="firstName"
             type="text"
             placeholder="Enter your first name"
-            // value={currentUser.firstName}
+           
           />
 
           <CustomInput
@@ -92,7 +92,7 @@ export default function SignupForm({ userProfiles }) {
             name="lastName"
             type="text"
             placeholder="Enter your last name"
-            // value={currentUser.lastName}
+          
           />
 
           <CustomInput
@@ -100,7 +100,7 @@ export default function SignupForm({ userProfiles }) {
             name="streetAddress"
             type="text"
             placeholder="Enter your street address"
-            // value={currentUser.streetAddress}
+            
           />
 
           <CustomInput
@@ -108,7 +108,7 @@ export default function SignupForm({ userProfiles }) {
             name="city"
             type="text"
             placeholder="Enter your city"
-            // value={currentUser.city}
+       
           />
 
           <CustomInput
@@ -116,14 +116,14 @@ export default function SignupForm({ userProfiles }) {
             name="postalCode"
             type="text"
             placeholder="Enter your postal code"
-            // value={currentUser.postalCode}
+          
           />
 
           <CustomSelect
             label="Province"
             name="province"
             placeholder="Please select a province"
-            // value={currentUser.province}
+            
           >
             <option value="">Please select a province</option>
             <option value="ON">Ontario</option>
@@ -140,7 +140,11 @@ export default function SignupForm({ userProfiles }) {
 
         
 
-          <button disabled={isSubmitting} type="submit">
+          <button
+            className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md flex items-center justify-center"
+            type="submit"
+            disabled={isSubmitting}
+          >
             Submit
           </button>
         </Form>

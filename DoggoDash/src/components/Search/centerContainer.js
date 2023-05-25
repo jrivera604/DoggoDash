@@ -63,8 +63,6 @@ export default function CenterContainer({
     onDogSittersUpdate(dogSitters);
   }, [dogSitters]);
 
-  const defaultProfileImage =
-    "https://img.freepik.com/free-photo/young-beautiful-woman-pink-warm-sweater-natural-look-smiling-portrait-isolated-long-hair_285396-896.jpg";
 
   return (
     <div className={styles.centerContainer}>
@@ -86,7 +84,7 @@ export default function CenterContainer({
           <Link
             key={dogSitter.id}
             id={dogSitter.id}
-            className={`${styles.dogSitterContainer} ${
+            className={`${styles.dogSitterContainer} ${styles.hoverShadow} ${
               selectedDogSitterId === dogSitter.id ? styles.selected : ""
             }`}
             href={`/search/${dogSitter.id}`}
@@ -125,8 +123,8 @@ export default function CenterContainer({
                   );
                 })}
               </div>
-              <p className={styles.description}>"{dogSitter.description}"</p>
             </div>
+              <p className={styles.description}>"{dogSitter.description}"</p>
           </Link>
         ))
       )}
