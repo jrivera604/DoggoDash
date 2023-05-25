@@ -3,7 +3,9 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { useRouter } from "next/router";
 import ProfileCalendar from "@/src/components/profileCalendar";
-import BookingButton from "@/src/components/bookingButton";
+import BookingButton from "@/src/components/bookingButton"; 
+import { faMessage, faCalendarDays} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -101,13 +103,17 @@ export default function DogSitterProfile() {
                 </a>
               </div>
             </div>
-            <h1 className=" flex justify-center  mt-4 mb-2 text-2xl tracking-tight text-gray-900"> Availability</h1>
+            <h1 className=" flex justify-center  mt-4 mb-2 text-2xl tracking-tight text-gray-900"> 
+            <FontAwesomeIcon icon={faCalendarDays} className="mr-3" size="lg" />
+            Availability
+            </h1>
             <ProfileCalendar sitterAvailability={dogSitter} />
 
             <button
               onClick={handleReplace}
-              className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md flex items-center justify-center"
+              className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md flex items-center justify-center hover:bg-blue-600"
             >
+             <FontAwesomeIcon icon={faMessage} className="mr-3" size="lg" />
               Contact
             </button>
             <div>
