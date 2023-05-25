@@ -1,4 +1,4 @@
-// import "styles/profileCalendar.css"
+import "styles/profileCalendar.css"
 import '@/styles/globals.css'
 import '../styles/tailwind.css' 
 import "styles/nav.scss"
