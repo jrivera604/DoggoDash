@@ -4,13 +4,13 @@ import { useState, useEffect } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import styles from '../../styles/message.module.css';
 
-
 export default function Chat() {
   const [socket, setSocket] = useState(null);
   const { user, error, isLoading } = useUser();
   const [chosenUsername, setChosenUsername] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [activeUsers, setActiveUsers] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,9 +34,11 @@ export default function Chat() {
   useEffect(() => {
     if (socket) {
       socket.on("newIncomingMessage", handleNewIncomingMessage);
+      socket.on("activeUsers", setActiveUsers);
 
       return () => {
         socket.off("newIncomingMessage", handleNewIncomingMessage);
+        socket.off("activeUsers", setActiveUsers);
       };
     }
   }, [socket]);
@@ -48,21 +50,18 @@ export default function Chat() {
       return [...currentMsg, newMsg];
     });
   };
-  
-  
 
   const sendMessage = () => {
     if (message.trim()) {
-      const newMessage = { author: username, message };
+      const newMessage = { author: chosenUsername, message };
       setMessages((currentMessages) => [...currentMessages, newMessage]);
       socket.emit("createdMessage", newMessage);
       setMessage("");
     }
   };
-  
-  
+
   const handleKeypress = (e) => {
-    //it triggers by pressing the enter key
+    // It triggers by pressing the enter key
     if (e.keyCode === 13) {
       if (message) {
         sendMessage();
@@ -76,9 +75,9 @@ export default function Chat() {
     }
   }, [user, isLoading]);
 
-  const username = chosenUsername.split("@")[0];
-
-  console.log(messages);
+  const handleUserClick = (username) => {
+    setChosenUsername(username);
+  };
 
   return (
     <div className={styles['chat-container']}>
@@ -87,78 +86,52 @@ export default function Chat() {
           Active Users
         </div>
         <div className={styles['online-users-body']}>
-          <div className={styles['user-item']}>
-            Jacob
-          </div>
-          <div className={styles['user-item']}>
-            Emily
-          </div>
+          {activeUsers.map((username) => (
+            <div
+              className={styles['user-item']}
+              key={username}
+              onClick={() => handleUserClick(username)}
+            >
+              {username}
+            </div>
+          ))}
         </div>
       </div>
       <div className={styles['chat-area']}>
         <div className={styles['chat-header']}>
           <div className={styles['chat-name']}>
-            Conversation Name
+            Conversation Name: {chosenUsername}
           </div>
           <button className={styles['leave-btn']}>
             Leave Chat
           </button>
         </div>
         <div className={styles['chat-box']}>
-        {messages.map((msg, i) => {
-          return (
+          {messages.map((msg, i) => (
             <div className={styles['message-row']} key={`messageRowItem${i}`}>
-              {
-                msg.author != username ?
-                <div className={styles['bubble-receive']}>{ msg.message }</div> :
-                <div className={styles['bubble-sent']}>{ msg.message }</div>
-              }
+              {msg.author !== chosenUsername ? (
+                <div className={styles['bubble-receive']}>{msg.message}</div>
+              ) : (
+                <div className={styles['bubble-sent']}>{msg.message}</div>
+              )}
             </div>
-          )  
-        })
-        }
+          ))}
         </div>
         <div className={styles['chat-footer']}>
           <div className={styles['chat-input']}>
-            <input type='text' placeholder='New message...' value={message} onChange={(e) => setMessage(e.target.value)}  onKeyUp={handleKeypress} />
+            <input
+              type="text"
+              placeholder="New message..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyUp={handleKeypress}
+            />
           </div>
-          <button className={styles['send-btn']} onClick={() => sendMessage()}>
+          <button className={styles['send-btn']} onClick={sendMessage}>
             Send
           </button>
         </div>
       </div>
     </div>
-    // <div className={styles['chat-container']}>
-    //   <main className={styles['chat-messages']}>
-    //     <p className="font-bold text-white text-xl">
-    //       Your username: {username}
-    //     </p>
-    //     <div className={styles['chat-message-container']}>
-    //       {messages.map((msg, i) => {
-    //         return (
-    //           <div
-    //             className={styles['chat-message']}
-    //             key={i}
-    //           >
-    //             {msg.author} : {msg.message}
-    //           </div>
-    //         );
-    //       })}
-    //     </div>
-    //     <div className={styles['chat-form']}>
-    //       <input
-    //         type="text"
-    //         placeholder="New message..."
-    //         value={message}
-    //         className={styles['chat-input']}
-    //         onChange={(e) => setMessage(e.target.value)}
-    //         onKeyUp={handleKeypress}
-    //       />
-    //       <div className={styles['chat-send-button']} onClick={() => sendMessage()}>
-    //         Send
-    //       </div>
-    //     </div>
-    //   </main>
-    // </div>
   );
-}   
+}

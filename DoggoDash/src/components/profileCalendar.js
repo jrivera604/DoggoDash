@@ -17,11 +17,7 @@ export default function ProfileCalendar({ sitterAvailability }) {
   return (
     <div className="app">
       <div className="calendar-container">
-      <p className="text-3xl tracking-tight text-gray-900">
-             Availability
-            </p>
         <Calendar
-          
           value={[startDate, endDate]}
           selectRange={true}
         />
