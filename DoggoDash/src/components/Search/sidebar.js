@@ -14,7 +14,7 @@ export default function Sidebar({ onSearch }) {
 
   return (
     <div className={styles.sidebar}>
-      <label className="text-2xl font-bold tracking-tight sm:text-3xl">FILTER</label>
+      <label className="text-2xl font-bold tracking-tight sm:text-2xl">CITY</label>
       <input
         type="text"
         placeholder="Enter city"
@@ -22,7 +22,7 @@ export default function Sidebar({ onSearch }) {
         onChange={(e) => setCity(e.target.value)}
       />
       <div>
-      <label className="text-2xl font-bold tracking-tight sm:text-3xl">MIN RATE</label>
+      <label className="text-2xl font-bold tracking-tight sm:text-2xl">MIN RATE</label>
         <input
           type="number"
           value={minRating}
@@ -30,7 +30,7 @@ export default function Sidebar({ onSearch }) {
         />
       </div>
       <div>
-      <label className="text-2xl font-bold tracking-tight sm:text-3xl">MAX RATE</label>
+      <label className="text-2xl font-bold tracking-tight sm:text-2xl">MAX RATE</label>
         <input
           type="number"
           value={maxRating}

@@ -1,34 +1,35 @@
-import 'react-calendar/dist/Calendar.css';
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 
-
-export default function ProfileCalendar ({sitterAvailability}) {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+export default function ProfileCalendar({ sitterAvailability }) {
+  const [date, setDate] = useState(new Date());
+console.log(sitterAvailability.startDate, sitterAvailability.endDate)
   
-  useEffect(() => {
-    // Set the initial values based on the provided start and end dates
-    setStartDate(sitterAvailability.availabilityStart);
-    setEndDate(sitterAvailability.availabilityEnd);
-  }, []);
-
- 
   return (
     <div className='app'>
-      <h1 className='text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"'>Availability</h1>
+   
       <div className='calendar-container'>
         <Calendar
-          className='react-calendar'
-          style =".react-calendar .react-calendar__tile--highlight {
-            background-color: #ffcc00;
-            color: #fff;
-          }"
-          value={[startDate, endDate]}
+          onChange={setDate}
+          value={date}
+          selectRange={true}
         />
       </div>
+      {date.length > 0 ? (
+        <p className='text-center'>
+          <span className='bold'>Available From:</span>{' '}
+          {date[0].toDateString()}
+          &nbsp;|&nbsp;
+          <span className='bold'>To</span> {date[1].toDateString()}
+        </p>
+      ) : (
+        <p className='text-center'>
+          <span className='bold'>Default selected date:</span>{' '}
+          {date.toDateString()}
+        </p>
+      )}
     </div>
   );
 }
-
 
