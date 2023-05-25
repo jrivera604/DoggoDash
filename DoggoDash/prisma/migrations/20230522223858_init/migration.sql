@@ -13,7 +13,7 @@ CREATE TABLE "User" (
     "createdAt" DATETIME DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME,
     "rate" INTEGER,
-    "rating" INTEGER,
+    "rating" DECIMAL,
     "availabilityStart" DATETIME,
     "availabilityEnd" DATETIME,
     "description" TEXT,

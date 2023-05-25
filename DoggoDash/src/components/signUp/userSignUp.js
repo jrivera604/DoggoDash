@@ -4,12 +4,14 @@ import CustomInput from "./CustomInput";
 import CustomSelect from "./CustomSelect";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useState, useEffect } from "react";
 
-export default function SignupForm() {
-  const router = useRouter()
+export default function SignupForm({ userProfiles }) {
+  const [currentUser, setCurrentUser] = useState({});
+  const router = useRouter();
   const { user } = useUser();
-  
+
   const onSubmit = async (values, actions) => {
     const data = {
       email: user.email,
@@ -20,15 +22,26 @@ export default function SignupForm() {
       city: values.city,
       postalCode: values.postalCode,
       province: values.province,
-      // email: values.email,
-      // password: values.password,
     };
-    axios.post("/api/signUp", {data});
+    axios.post("/api/signUp", { data });
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
-    router.replace("search")
+    router.replace("userProfile");
   };
-  
+
+  const findCurrentUser = async () => {
+    for (const userProfile of userProfiles) {
+      if (userProfile.email === user.email) {
+        setCurrentUser(userProfile);
+      }
+    }
+  };
+
+  useEffect(() => {
+    findCurrentUser();
+  }, []);
+
+
   return (
     <Formik
       initialValues={{
@@ -40,39 +53,38 @@ export default function SignupForm() {
         postalCode: "",
         province: "",
         email: "",
-        // password: "",
-        // confirmPassword: "",
       }}
       validationSchema={userSignUP}
       onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (
         <Form>
-                    {/* Uses Auth0 to fill email field with current user email */}
-         {user && (
-          <CustomInput
-            label="Email"
-            name="email"
-            type="text"
-            value={user.email}
-            disabled
+          {/* Uses Auth0 to fill email field with current user email */}
+          {user && (
+            <CustomInput
+              label="Email"
+              name="email"
+              type="text"
+              value={user.email}
+              disabled
             />
           )}
           <CustomSelect
             label="User Type"
             name="userType"
             placeholder="Please select a user type"
+            // value={currentUser.userType}
           >
             <option value="">Please select an account type</option>
             <option value="dogOwner">Dog Owner</option>
             <option value="dogSitter">Dog Sitter</option>
-           
           </CustomSelect>
           <CustomInput
             label="First Name"
             name="firstName"
             type="text"
             placeholder="Enter your first name"
+            // value={currentUser.firstName}
           />
 
           <CustomInput
@@ -80,6 +92,7 @@ export default function SignupForm() {
             name="lastName"
             type="text"
             placeholder="Enter your last name"
+            // value={currentUser.lastName}
           />
 
           <CustomInput
@@ -87,6 +100,7 @@ export default function SignupForm() {
             name="streetAddress"
             type="text"
             placeholder="Enter your street address"
+            // value={currentUser.streetAddress}
           />
 
           <CustomInput
@@ -94,6 +108,7 @@ export default function SignupForm() {
             name="city"
             type="text"
             placeholder="Enter your city"
+            // value={currentUser.city}
           />
 
           <CustomInput
@@ -101,12 +116,14 @@ export default function SignupForm() {
             name="postalCode"
             type="text"
             placeholder="Enter your postal code"
+            // value={currentUser.postalCode}
           />
 
           <CustomSelect
             label="Province"
             name="province"
             placeholder="Please select a province"
+            // value={currentUser.province}
           >
             <option value="">Please select a province</option>
             <option value="ON">Ontario</option>
@@ -121,26 +138,7 @@ export default function SignupForm() {
             <option value="NL">Newfoundland & Labrador</option>
           </CustomSelect>
 
-          {/* <CustomInput
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="Enter your email"
-          />
-
-          <CustomInput
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Enter your password"
-          />
-
-          <CustomInput
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm password"
-          /> */}
+        
 
           <button disabled={isSubmitting} type="submit">
             Submit
