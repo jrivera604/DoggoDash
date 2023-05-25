@@ -7,7 +7,7 @@
     height: 100%;
     width: 80%;
     overflow-y: auto;
-    background-color: #faf0e6;
+    background-color: rgb(239, 239, 245);
     height: 100vh
   }
   
@@ -16,7 +16,7 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 3px solid rgb(187, 186, 186);
   }
   
   .profilePictureContainer {
@@ -64,4 +64,18 @@
     .centerContainer {
       width: 100%; /* Change to full width */
     }
+  }  
+
+  .hoverShadow:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  } 
+
+  .description{ 
+    width: 65%;
+    margin-left: 15px
   }
+
+
+  .selectedName {
+  color: red;
+}

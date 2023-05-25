@@ -4,13 +4,13 @@ import Calendar from 'react-calendar';
 
 
 export default function ProfileCalendar ({sitterAvailability}) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   
   useEffect(() => {
     // Set the initial values based on the provided start and end dates
-    setStartDate(new Date(`${sitterAvailability.availabilityStart}`));
-    setEndDate(new Date(`${sitterAvailability.availabilityEnd}`));
+    setStartDate(sitterAvailability.availabilityStart);
+    setEndDate(sitterAvailability.availabilityEnd);
   }, []);
 
  
@@ -20,6 +20,10 @@ export default function ProfileCalendar ({sitterAvailability}) {
       <div className='calendar-container'>
         <Calendar
           className='react-calendar'
+          style =".react-calendar .react-calendar__tile--highlight {
+            background-color: #ffcc00;
+            color: #fff;
+          }"
           value={[startDate, endDate]}
         />
       </div>

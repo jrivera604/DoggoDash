@@ -1,5 +1,5 @@
 .sidebar {
-  flex: 0 0 20%; /* Set a fixed width of 20% */
+  flex: 0 0 16%; /* Set a fixed width of 20% */
   background-color: white;
   padding: 20px;
 }

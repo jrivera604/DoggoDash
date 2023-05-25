@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('https://www.thesun.co.uk/wp-content/uploads/2022/01/NINTCHDBPICT000704552558.jpg?strip=all&quality=100&w=1920&h=1080&crop=1'); /* Replace with the path to your background image */
+  background-image: url('https://images.unsplash.com/photo-1513013156887-d2bf241c8c82?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'); 
   background-size: cover;
   background-position: center;
 }

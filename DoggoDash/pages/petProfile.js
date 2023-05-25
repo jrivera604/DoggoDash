@@ -33,17 +33,7 @@ export default function PetProfile({ dogs }) {
 export async function getStaticProps() {
   const prisma = new PrismaClient();
  
-  // const userEmail = CurrentUser()
-  
-  // const currentUser = await prisma.user.findUnique({
-  //   where: { 
-  //     email: userEmail , 
-  //   },
-  // });
-  
-  // const dogs = await prisma.dog.findMany({
-  //   where:{ownerId:currentUser.id }
-  // });
+
 
   const dogs = await prisma.dog.findMany();
 

@@ -26,6 +26,7 @@ model User {
   availabilityEnd   DateTime?
   description       String?
   serviceCategory   String? // Added field for service category
+  profilePicture    String?
   
 
   // Relationships

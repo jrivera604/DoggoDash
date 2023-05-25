@@ -140,7 +140,7 @@ export default function SignupForm({ userProfiles }) {
 
         
 
-          <button disabled={isSubmitting} type="submit">
+          <button disabled={isSubmitting} type="submit" >
             Submit
           </button>
         </Form>

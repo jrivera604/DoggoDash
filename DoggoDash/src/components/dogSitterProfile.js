@@ -5,31 +5,7 @@ import { useRouter } from "next/router";
 import ProfileCalendar from "@/src/components/profileCalendar";
 import BookingButton from "@/src/components/bookingButton";
 
-const profile = {
-  href: "#",
 
-  images: [
-    {
-      src: "https://images.unsplash.com/photo-1594283255808-ee728c775ba6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFuJTIwd2l0aCUyMGRvZ3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
-      
-    },
-    {
-      src: "https://images.unsplash.com/photo-1587207405587-9b5047cb3c18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nzl8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-      
-    },
-    {
-      src: "https://images.unsplash.com/photo-1588618215037-229aa2c1bd61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=449&q=80",
-
-    },
-    {
-      src: "https://images.unsplash.com/photo-1587044888697-5596206bf063?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODN8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-
-    },
-  ],
-
-  description:
-    "I have been around dogs for virtually my entire life. I love them, and they love me. I am caring and respectful of the dogs, and I understand their needs and desires. I am firm with them when needed, but never harsh or cruel. When your dogs spend time with me, they will be sure to get all the attention and exercise they need, and they will soon look forward to our further adventures together. As well, I am always happy to refer regularly with you to keep you up to date with what your dogs and I are doing, whether that's going for walks in the park, playing games, or just relaxing. I am prompt and reliable, as well as approachable and professional. I look forward to hearing from you.",
-};
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes) {
@@ -41,7 +17,6 @@ export default function DogSitterProfile() {
 
   const router = useRouter();
   const currentUser = router.query.id;
-  console.log("current user", currentUser)
 
   const handleReplace = () => {
     router.replace("/messages");
@@ -51,19 +26,19 @@ export default function DogSitterProfile() {
     try {
       const response = await axios.get(`/api/sitterProfile?id=${currentUser}`);
       const fetchedDogSitter = response.data;
-  
+
       // Update the dogSitter object to include the id property
       const updatedDogSitter = {
         ...fetchedDogSitter,
         id: fetchedDogSitter.id, // Assign the id value from the fetchedDogSitter
       };
-  
+
       setDogSitter(updatedDogSitter);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
-  
+
   useEffect(() => {
     searchDogSitter();
   }, []);
@@ -71,49 +46,30 @@ export default function DogSitterProfile() {
   return (
     <div className="bg-white">
       <div className="pt-6">
-        {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
-              src={profile.images[0].src}
-              alt={profile.images[0].alt}
+              src={dogSitter.profilePicture}
               className="h-full w-full object-cover object-center"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={profile.images[1].src}
-                alt={profile.images[1].alt}
-                className="h-full w-full object-cover object-center"
-              />
+            <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                {dogSitter.firstName} {dogSitter.lastName}
+              </h1>
+              <div>
+                <h3 className="sr-only">Description</h3> 
+
+
+                <div className="space-y-6">
+                  <p className="text-base text-gray-900" >
+                    {dogSitter.description}
+                  </p>
+                </div>
+              </div>
             </div>
-            {/* <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img
-                src={profile.images[2].src}
-                alt={profile.images[2].alt}
-                className="h-full w-full object-cover object-center"
-              />
-            </div> */}
           </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <img
-              src={profile.images[3].src}
-              alt={profile.images[3].alt}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
-        </div>
-
-        {/* profile info */}
-        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {dogSitter.firstName} {dogSitter.lastName}
-            </h1>
-          </div>
-
-          {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">profile information</h2>
             <p className="text-3xl tracking-tight text-gray-900">
@@ -148,7 +104,7 @@ export default function DogSitterProfile() {
               </div>
             </div>
 
-            {/* <ProfileCalendar sitterAvailability = {dogSitter}/> */}
+            <ProfileCalendar sitterAvailability = {dogSitter}/>
 
             <button
               onClick={handleReplace}
@@ -157,20 +113,7 @@ export default function DogSitterProfile() {
               Contact
             </button>
             <div>
-            <BookingButton senderId={currentUser} receiverId={dogSitter.id} />
-            </div>
-          </div>
-
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                <p className="text-base text-gray-900">
-                  {dogSitter.description}
-                </p>
-              </div>
+              <BookingButton senderId={currentUser} receiverId={dogSitter.id} />
             </div>
           </div>
         </div>
