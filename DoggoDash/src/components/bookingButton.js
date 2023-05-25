@@ -70,7 +70,7 @@ export default function BookingButton({ receiverId }) {
         onChange={date => setSelectedDate(date)}
         dateFormat="yyyy-MM-dd"
       />
-      <button onClick={handleBooking}>Book</button>
+      <button className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md flex items-center justify-center" onClick={handleBooking}>Book</button>
     </div>
   );
 }

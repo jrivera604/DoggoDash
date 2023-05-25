@@ -99,10 +99,10 @@ export default function UserProfile({ userProfiles }) {
               </dd>
             </div>
           </dl>
-          <button className="w-1/3" onClick={handleReplace}>
-          <FontAwesomeIcon icon={faPenToSquare} />
-            Update
-          </button>
+          <button className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md flex items-center justify-center" onClick={handleReplace}>
+          <FontAwesomeIcon icon={faPenToSquare} className="mr-2" />
+          Update
+        </button>
         </div>
       </div>
     </div>

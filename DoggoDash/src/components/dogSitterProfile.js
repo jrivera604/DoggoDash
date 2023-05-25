@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import ProfileCalendar from "@/src/components/profileCalendar";
 import BookingButton from "@/src/components/bookingButton";
 
-
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes) {
@@ -59,11 +58,10 @@ export default function DogSitterProfile() {
                 {dogSitter.firstName} {dogSitter.lastName}
               </h1>
               <div>
-                <h3 className="sr-only">Description</h3> 
-
+                <h3 className="mt-4 text-lg font-medium text-gray-900"></h3>
 
                 <div className="space-y-6">
-                  <p className="text-base text-gray-900" >
+                  <p className="text-base text-gray-900">
                     {dogSitter.description}
                   </p>
                 </div>
@@ -104,11 +102,11 @@ export default function DogSitterProfile() {
               </div>
             </div>
 
-            <ProfileCalendar sitterAvailability = {dogSitter}/>
+            <ProfileCalendar sitterAvailability={dogSitter} />
 
             <button
               onClick={handleReplace}
-              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md flex items-center justify-center"
             >
               Contact
             </button>
