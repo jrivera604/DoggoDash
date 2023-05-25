@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import styles from "../../styles/map.module.css";
-import axios from "axios";
-import MyLoader from "./myLoader";
 
-const defaultProfileImage =
-  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+
+
+
 
   export default function Maps({ dogSitters }) {
     const { isLoaded } = useLoadScript({
@@ -23,6 +22,7 @@ const defaultProfileImage =
   
     if (!isLoaded) return <div>Loading...</div>;
 
+    // Function to scroll to a specific dog sitter on the page
     const scrollToDogSitter = (dogSitterId) => {
       const dogSitterElement = document.getElementById(dogSitterId);
       if (dogSitterElement) {
@@ -38,6 +38,7 @@ const defaultProfileImage =
     );
   }
   
+  //Google Map function
   function Map({ dogSitters, center, setMapCenter, scrollToDogSitter }) {
     const { isLoaded } = useLoadScript({
       googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,

@@ -18,7 +18,8 @@ export default function CenterContainer({
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
-
+  
+  // Function to search dog sitters based on filters
   const searchDogSitters = async (city, minRating, maxRating) => {
     try {
       setIsLoading(true); // Set loading state to true while data is being fetched
@@ -53,10 +54,12 @@ export default function CenterContainer({
   };
 
   useEffect(() => {
+    // Trigger dog sitter search whenever filters change
     searchDogSitters(filteredCity, minRating, maxRating);
   }, [filteredCity, minRating, maxRating]);
 
   useEffect(() => {
+    // Callback function to pass the updated dog sitters to the parent component
     onDogSittersUpdate(dogSitters);
   }, [dogSitters]);
 
@@ -65,7 +68,7 @@ export default function CenterContainer({
 
   return (
     <div className={styles.centerContainer}>
-      {isLoading ? (
+      {isLoading ? ( //render skeleton loader
         <>
           <MyLoader />
           <MyLoader />
@@ -78,6 +81,7 @@ export default function CenterContainer({
           <MyLoader />
         </>
       ) : (
+        //render dog sitter markers
         dogSitters.map((dogSitter) => (
           <Link
             key={dogSitter.id}
@@ -112,6 +116,7 @@ export default function CenterContainer({
                     dogSitter.rating > rating ? "text-yellow-400" : "text-gray-400";
 
                   return (
+                    //rating icons
                     <StarIcon
                       key={rating}
                       className={classNames(starClassName, "h-5 w-5 flex-shrink-0")}

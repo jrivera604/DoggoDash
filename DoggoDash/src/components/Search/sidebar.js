@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/sidebar.module.css';
 
+//Sidebar city search filter and min/max filter
 export default function Sidebar({ onSearch }) {
   const [city, setCity] = useState('');
   const [minRating, setMinRating] = useState(1);

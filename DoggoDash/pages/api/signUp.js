@@ -25,6 +25,7 @@ export default async function handler(req, res) {
         city: data.city,
         postalCode: data.postalCode,
         province: data.province,
+        rate: data.rate,
       },
     });
     console.log(data)

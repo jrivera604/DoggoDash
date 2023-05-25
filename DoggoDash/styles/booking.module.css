@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .booking-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .booking-card p {
+    margin: 5px 0;
+  }
+  
+  .booking-card .name {
+    font-weight: bold;
+  }
+  
+  .booking-card .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
