@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 import styles from '../../styles/message.module.css';
-import {faEnvelope, faPaperPlane, faUsers} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Chat() {
@@ -12,7 +12,6 @@ export default function Chat() {
   const [chosenUsername, setChosenUsername] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [activeUsers, setActiveUsers] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,11 +35,9 @@ export default function Chat() {
   useEffect(() => {
     if (socket) {
       socket.on("newIncomingMessage", handleNewIncomingMessage);
-      socket.on("activeUsers", setActiveUsers);
 
       return () => {
         socket.off("newIncomingMessage", handleNewIncomingMessage);
-        socket.off("activeUsers", setActiveUsers);
       };
     }
   }, [socket]);
@@ -48,22 +45,27 @@ export default function Chat() {
   const handleNewIncomingMessage = (msg) => {
     setMessages((currentMsg) => {
       const author = msg.author.split("@")[0];
-      const newMsg = { author, message: msg.message };
+      const currentUser = chosenUsername.split("@")[0];
+      const isCurrentUser = author === currentUser;
+      const newMsg = { author, message: msg.message, isCurrentUser };
       return [...currentMsg, newMsg];
     });
   };
+  
+  
 
   const sendMessage = () => {
     if (message.trim()) {
-      const newMessage = { author: chosenUsername, message };
+      const newMessage = { author: username, message };
       setMessages((currentMessages) => [...currentMessages, newMessage]);
       socket.emit("createdMessage", newMessage);
       setMessage("");
     }
   };
-
+  
+  
   const handleKeypress = (e) => {
-    // It triggers by pressing the enter key
+    //it triggers by pressing the enter key
     if (e.keyCode === 13) {
       if (message) {
         sendMessage();
@@ -77,35 +79,40 @@ export default function Chat() {
     }
   }, [user, isLoading]);
 
-  const handleUserClick = (username) => {
-    setChosenUsername(username);
-  };
+  const username = chosenUsername.split("@")[0];
+
+  console.log(messages);
 
   return (
-    
     <div className={styles['chat-container']}>
-    
       <div className={styles['chat-area']}>
-        <h1 className=" flex justify-center text-2xl font-bold tracking-tight sm:text-2xl">
-            
-          </h1>
-        <div className={styles['chat-header']}>
-          <div className={styles['chat-name']}>
-        <FontAwesomeIcon icon={faEnvelope} className="mr-3" size="lg" />
-            Conversation Name: {chosenUsername}
-          </div>
-       
-        </div>
+        <h1 className="flex justify-center text-2xl font-bold tracking-tight sm:text-2xl">
+          <FontAwesomeIcon icon={faEnvelope} className="mr-3" size="lg" />
+          User: {chosenUsername}
+        </h1>
         <div className={styles['chat-box']}>
-          {messages.map((msg, i) => (
-            <div className={styles['message-row']} key={`messageRowItem${i}`}>
-              {msg.author !== chosenUsername ? (
-                <div className={styles['bubble-receive']}>{msg.message}</div>
-              ) : (
-                <div className={styles['bubble-sent']}>{msg.message}</div>
-              )}
+        {messages.map((msg, i) => {
+          const author = msg.author.split("@")[0]; // Get the modified author value
+          const isCurrentUser = author === chosenUsername;
+          const bubbleClass = isCurrentUser ? styles['bubble-sent'] : styles['bubble-receive'];
+
+          return (
+            <div
+              className={styles['message-row']}
+              key={`messageRowItem${i}`}
+            >
+              <div className={`${styles['message-bubble']} ${bubbleClass}`}>
+                {isCurrentUser ? (
+                  <span className={styles['username']}>{chosenUsername}: </span>
+                ) : (
+                  <span className={styles['username']}>{msg.author}: </span>
+                )}
+                {msg.message}
+              </div>
             </div>
-          ))}
+          );
+        })}
+
         </div>
         <div className={styles['chat-footer']}>
           <div className={styles['chat-input']}>
@@ -118,7 +125,7 @@ export default function Chat() {
             />
           </div>
           <button className={styles['send-btn']} onClick={sendMessage}>
-          <FontAwesomeIcon icon={faPaperPlane} className="mr-3" size="lg" />
+            <FontAwesomeIcon icon={faPaperPlane} className="mr-3" size="lg" />
             Send
           </button>
         </div>
