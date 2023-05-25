@@ -101,7 +101,7 @@ export default function DogSitterProfile() {
                 </a>
               </div>
             </div>
-
+            <h1 className=" flex justify-center  mt-4 mb-2 text-2xl tracking-tight text-gray-900"> Availability</h1>
             <ProfileCalendar sitterAvailability={dogSitter} />
 
             <button

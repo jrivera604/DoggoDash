@@ -3,6 +3,8 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import styles from '../../../styles/booking.module.css';
+import { faBook} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function DogSitterBookings() {
   const { user } = useUser();
@@ -108,28 +110,35 @@ export default function DogSitterBookings() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles['booking-title']}>My Bookings</h1>
-      {bookings.map((booking) => {
-        // Format the date
-        const formattedDate = new Date(booking.date).toLocaleDateString();
+    <h1 className={`${styles['booking-title']} flex justify-center text-2xl font-bold tracking-tight sm:text-2xl mt-6 `}>
+    <FontAwesomeIcon icon={faBook} className="mr-3" size="lg"/>
+      My Bookings
+    </h1>
+    {bookings.map((booking) => {
+      // Format the date
+      const formattedDate = new Date(booking.date).toLocaleDateString();
   
-        return (
-          <div className={styles['booking-item']} key={booking.id}>
-            <p>Date: {formattedDate}</p>
-            <p>Status: {booking.status}</p>
-            <p>Dog Owner: {booking.sender.firstName} {booking.sender.lastName}</p>
-            <p>Dog Sitter: {booking.receiver.firstName} {booking.receiver.lastName}</p>
-            {(booking.receiver.email === user.email && booking.status === 'pending') && (
-              <button onClick={() => handleAcceptBooking(booking.id)}>Accept</button>
-            )}
-            {(booking.sender.email || booking.receiver.email === user.email) && (booking.status === 'accepted' || booking.status === 'pending') && (
-              <button onClick={() => handleCancelBooking(booking.id)}>Cancel</button>
-            )}
-            <hr />
-          </div>
-        );
-      })}
-    </div>
-  );
-  
+      return (
+
+       <div className={`${styles['booking-item']} p-6 w-1/2  text-lg font-medium leading-6 text-gray-900`} key={booking.id}>
+          <p>Date: {formattedDate}</p>
+          <p>Status: {booking.status}</p>
+          <p>Dog Owner: {booking.sender.firstName} {booking.sender.lastName}</p>
+          <p>Dog Sitter: {booking.receiver.firstName} {booking.receiver.lastName}</p>
+          {(booking.receiver.email === user.email && booking.status === 'pending') && (
+            <button className={`${styles['booking-button']} w-20`} onClick={() => handleAcceptBooking(booking.id)}>
+              Accept
+            </button>
+          )}
+          {(booking.sender.email || booking.receiver.email === user.email) && (booking.status === 'accepted' || booking.status === 'pending') && (
+            <button className={`${styles['booking-button']} w-20`} onClick={() => handleCancelBooking(booking.id)}>
+              Cancel
+            </button>
+          )}
+          <hr className="my-6" />
+        </div>
+      );
+    })}
+      </div>
+  )
 }

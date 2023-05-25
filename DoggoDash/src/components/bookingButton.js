@@ -64,7 +64,7 @@ export default function BookingButton({ receiverId }) {
 
   return (
     <div>
-      <h1>Select Date</h1>
+       <h1 className=" flex justify-center  mt-2 mb-2 text-1xl tracking-tight text-gray-900"> Select Date</h1>
       <DatePicker
         selected={selectedDate}
         onChange={date => setSelectedDate(date)}

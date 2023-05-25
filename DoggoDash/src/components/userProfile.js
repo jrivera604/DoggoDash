@@ -2,7 +2,7 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faUser,faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserProfile({ userProfiles }) {
@@ -27,13 +27,14 @@ export default function UserProfile({ userProfiles }) {
   };
 
   return (
-    <div className=  "flex justify-center mt-20 rounded-lg">
-      <div className="border border-gray-500 rounded-lg p-6 w-1/2  ">
+    <div className=  "flex justify-center ">
+      <div className=" p-6 w-1/2  ">
         <div className="mt-6 ">
-          <h1 className=" text-lg flex justify-center text-base font-semibold text-gray-900">
+          <h1 className=" flex justify-center text-2xl font-bold tracking-tight sm:text-2xl">
+          <FontAwesomeIcon icon={faUser} className="mr-3" size="lg" />
             User Profile
           </h1>
-          <dl className="divide-y divide-gray-100">
+          <dl className="divide-y divide-gray-350">
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
               <dt className="text-lg font-medium leading-6 text-gray-900">
                 First name

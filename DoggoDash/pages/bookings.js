@@ -8,7 +8,7 @@ export default function DogSitterBookingsPage() {
   console.log("Component userId", user);
   
   return (
-    <div>
+    <div >
       {user && (
         <nav>
           <SignedInNavbar />
