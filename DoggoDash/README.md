@@ -27,8 +27,6 @@ Doggo Dash is a multi page appication which allows users to register as a dog ow
 
 Install dependencies with `npm install`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 
 ## Dependencies  
 - "@auth0/nextjs-auth0": "^2.6.0",
