@@ -1,0 +1,112 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  userType          String?
+  firstName         String?
+  lastName          String?
+  streetAddress     String?
+  city              String?
+  province          String?
+  postalCode        String?
+  email             String?   @unique
+  password          String?
+  createdAt         DateTime? @default(now())
+  updatedAt         DateTime? @updatedAt
+  rate              Int?
+  rating            Decimal?
+  availabilityStart DateTime?
+  availabilityEnd   DateTime?
+  description       String?
+  serviceCategory   String? // Added field for service category
+  profilePicture    String?
+  
+
+  // Relationships
+  messagesSent     Message[]      @relation("Sender")
+  messagesReceived Message[]      @relation("Receiver")
+  dogs             Dog[]          @relation("Owner")
+  reviews          Review[]       @relation("UserReviews")
+  availabilities   Availability[]
+  bookingsSent     Booking[]      @relation("Sender")
+  bookingsReceived Booking[]      @relation("Receiver")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  comment   String
+  createdAt DateTime @default(now())
+
+  // Relationships
+  user   User @relation("UserReviews", fields: [userId], references: [id])
+  userId Int
+}
+
+model Message {
+  id        Int       @id @default(autoincrement())
+  timestamp DateTime?
+  message   String?
+  chatId    Int
+
+  // Relationships
+  sender     User @relation("Sender", fields: [senderId], references: [id])
+  senderId   Int
+  receiver   User @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId Int
+}
+
+model Dog {
+  id          Int       @id @default(autoincrement())
+  name        String?
+  yearOfBirth DateTime?
+  weight      Int?
+  temperament String?
+  comments    String?
+  image       String?
+
+  // Relationships
+  breed   Breed @relation(fields: [breedId], references: [id])
+  breedId Int
+  owner   User  @relation("Owner", fields: [ownerId], references: [id])
+  ownerId Int
+}
+
+model Breed {
+  id     Int     @id @default(autoincrement())
+  name   String?
+  images String?
+
+  // Relationships
+  dogs Dog[]
+}
+
+model Availability {
+  id        Int      @id @default(autoincrement())
+  day       String
+  startTime DateTime
+  endTime   DateTime
+
+  // Relationships
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Booking {
+  id      Int      @id @default(autoincrement())
+  date    DateTime
+  status  String
+  message String?
+
+  // Relationships
+  sender     User @relation("Sender", fields: [senderId], references: [id])
+  senderId   Int
+  receiver   User @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId Int
+}
