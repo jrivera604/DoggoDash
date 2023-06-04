@@ -3,7 +3,7 @@
 ## Getting started
 
 ```
-cd skeleton
+cd 
 npm i
 ```
 
